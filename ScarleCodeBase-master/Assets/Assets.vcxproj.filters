@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fonts">
+      <UniqueIdentifier>{27d945df-6801-4676-b1f2-9b171e8b0425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{8e595723-add9-42f2-8215-4fcf74f338ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{64fc769d-bad4-4c24-bf49-281a0d86541d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VBGO Files">
+      <UniqueIdentifier>{3a8825a5-02bb-4758-9e25-9d85f225fd2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{d0ca2129-2972-476d-82a9-1f0a9000b117}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="italic.spritefont">
+      <Filter>Fonts</Filter>
+    </None>
+    <None Include="shader.fx">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <MeshContentTask Include="Bird\BirdModelV1.fbx">
+      <Filter>Models</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Table\table.FBX">
+      <Filter>Models</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Vase\JEMINA vase -up.fbx">
+      <Filter>Models</Filter>
+    </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="baseline.txt">
+      <Filter>VBGO Files</Filter>
+    </Text>
+    <Text Include="cube.txt">
+      <Filter>VBGO Files</Filter>
+    </Text>
+    <Text Include="terrainTex.txt">
+      <Filter>VBGO Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="grass.jpg">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="white.jpg">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="logo_small.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+  </ItemGroup>
+</Project>

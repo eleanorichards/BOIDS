@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{1e7d8c42-051c-4cde-909d-e19155a0870d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{7b28fe8c-4987-4478-ab00-71d0e9f69858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base\Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Base\Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Objects\Headers">
+      <UniqueIdentifier>{5ade7b34-9197-4220-b76c-033c31d67d42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Source">
+      <UniqueIdentifier>{8e1bc308-fc3e-45d3-ac6e-5f8b8bcbd64f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\2D">
+      <UniqueIdentifier>{1700c96c-69ad-4b09-8ff4-d4e95cdacfb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Example VBGOs">
+      <UniqueIdentifier>{45c8dfd0-3f6c-4ed0-a8b0-57c14d11cfa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Example VBGOs\Headers">
+      <UniqueIdentifier>{1298ca80-307e-4f26-8364-51807f7283e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Example VBGOs\Source">
+      <UniqueIdentifier>{805de39c-33ae-4689-979d-f6e8d6dcff47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\2D\Headers">
+      <UniqueIdentifier>{c2ef8fb7-dbd4-4c9d-85a6-dc38645db3e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\2D\Source">
+      <UniqueIdentifier>{01e73c6e-7bcd-454a-8185-915670785862}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Base\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobject.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CMOGO.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectList.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>Base\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Base\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawData2D.h">
+      <Filter>Base\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawData.h">
+      <Filter>Base\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="VBGO.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex.h">
+      <Filter>Base\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>Base\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject2D.h">
+      <Filter>Objects\2D\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>Base\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="VBPillow.h">
+      <Filter>Objects\Example VBGOs\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="VBSnail.h">
+      <Filter>Objects\Example VBGOs\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="VBSpiked.h">
+      <Filter>Objects\Example VBGOs\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="VBspiral.h">
+      <Filter>Objects\Example VBGOs\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="fileVBGO.h">
+      <Filter>Objects\Example VBGOs\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeBit.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TPSCamera.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MarchCubes.h">
+      <Filter>Objects\Example VBGOs\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageGO2D.h">
+      <Filter>Objects\2D\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TextGO2D.h">
+      <Filter>Objects\2D\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="VBCube.h">
+      <Filter>Objects\Example VBGOs\Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>Base\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CMOGO.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobject.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VBGO.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject2D.cpp">
+      <Filter>Objects\2D\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TPSCamera.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VBSnail.cpp">
+      <Filter>Objects\Example VBGOs\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="fileVBGO.cpp">
+      <Filter>Objects\Example VBGOs\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VBCube.cpp">
+      <Filter>Objects\Example VBGOs\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="treebit.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MarchCubes.cpp">
+      <Filter>Objects\Example VBGOs\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageGO2D.cpp">
+      <Filter>Objects\2D\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TextGO2D.cpp">
+      <Filter>Objects\2D\Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
