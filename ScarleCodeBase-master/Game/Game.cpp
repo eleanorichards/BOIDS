@@ -11,6 +11,7 @@
 #include "GameData.h"
 #include "drawdata.h"
 #include "DrawData2D.h"
+#include "BoidManager.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -92,6 +93,11 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	Player* pPlayer = new Player("BirdModelV1.cmo", _pd3dDevice, m_fxFactory);
 	m_GameObjects.push_back(pPlayer);
 
+	//add Boid Manager
+	pBoidManager = new BoidManager(10, "BirdModelV1.cmo", _pd3dDevice, m_fxFactory);
+	m_GameObjects.push_back(pBoidManager);
+	
+
 	//add a secondary camera
 	m_TPScam = new TPSCamera(0.25f * XM_PI, AR, 1.0f, 10000.0f, pPlayer, Vector3::UnitY, Vector3(0.0f, 10.0f, 50.0f));
 	m_GameObjects.push_back(m_TPScam);
@@ -108,55 +114,10 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	m_GameObjects.push_back(terrain);
 
 	//add some stuff to show off
-
-	FileVBGO* terrainBox = new FileVBGO("../Assets/terrainTex.txt", _pd3dDevice);
-	m_GameObjects.push_back(terrainBox);
-
-	FileVBGO* Box = new FileVBGO("../Assets/cube.txt", _pd3dDevice);
-	m_GameObjects.push_back(Box);
-	Box->SetPos(Vector3(0.0f, 0.0f, -100.0f));
-	Box->SetPitch(XM_PIDIV4);
-	Box->SetScale(20.0f);
-
-	//L-system like tree
-	m_GameObjects.push_back(new Tree(4, 4, .6f, 10.0f *Vector3::Up, XM_PI/6.0f, "JEMINA vase -up.cmo", _pd3dDevice, m_fxFactory));
-
-	VBCube* cube = new VBCube();
-	cube->init(11, _pd3dDevice);
-	cube->SetPos(Vector3(100.0f, 0.0f, 0.0f));
-	cube->SetScale(4.0f);
-	m_GameObjects.push_back(cube);
-
-	VBSpike* spikes = new VBSpike();
-	spikes->init(11, _pd3dDevice);
-	spikes->SetPos(Vector3(0.0f, 0.0f, 100.0f));
-	spikes->SetScale(4.0f);
-	m_GameObjects.push_back(spikes);
-
-	VBSpiral* spiral = new VBSpiral();
-	spiral->init(11, _pd3dDevice);
-	spiral->SetPos(Vector3(-100.0f, 0.0f, 0.0f));
-	spiral->SetScale(4.0f);
-	m_GameObjects.push_back(spiral);
-
-	VBPillow* pillow = new VBPillow();
-	pillow->init(11, _pd3dDevice);
-	pillow->SetPos(Vector3(-100.0f, 0.0f, -100.0f));
-	pillow->SetScale(4.0f);
-	m_GameObjects.push_back(pillow);
-
 	VBSnail* snail = new VBSnail(_pd3dDevice, "../Assets/baseline.txt", 150, 0.98f, 0.09f * XM_PI, 0.4f, Color(1.0f, 0.0f, 0.0f, 1.0f), Color(0.0f, 0.0f, 1.0f, 1.0f));
 	snail->SetPos(Vector3(-100.0f, 0.0f, 100.0f));
 	snail->SetScale(2.0f);
 	m_GameObjects.push_back(snail);
-
-	//Marching Cubes
-	VBMarchCubes* VBMC = new VBMarchCubes();
-	VBMC->init(Vector3(-8.0f, -8.0f, -17.0f), Vector3(8.0f, 8.0f,23.0f), 60.0f*Vector3::One, 0.01, _pd3dDevice);
-	VBMC->SetPos(Vector3(100,0,-100));
-	VBMC->SetPitch(-XM_PIDIV2);
-	VBMC->SetScale(Vector3(3, 3, 1.5));
-	m_GameObjects.push_back(VBMC);
 
 
 	//example basic 2D stuff
