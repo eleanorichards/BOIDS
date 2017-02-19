@@ -4,6 +4,7 @@
 #include "Model.h"
 #include "Boid.h"
 #include <list>
+#include <vector>
 
 using namespace std;
 using namespace DirectX;	
@@ -16,12 +17,17 @@ public:
 	//void checkForCollisions(GameData* _GD);
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
-	list<Boid*> GetBoid();
+	//list<Boid*> GetBoid();
+	void getUserInput(GameData * _GD);
+	
 
 private:
+	using BoidVec = vector<Boid>;
+	BoidVec boids;
 	list<Boid*> m_Boids;
 	Vector3 initialLocation;
 	Vector3 travelDirection;
+	//vector<Boid> boids;
 	int max = 100;
 	int min = -100;
 };

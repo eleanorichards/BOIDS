@@ -20,5 +20,5 @@ private:
 	Vector3 travelDirection;
 	int max = 100;
 	int min = 50;
-	bool m_alive = true;
+	bool m_alive;
 };
