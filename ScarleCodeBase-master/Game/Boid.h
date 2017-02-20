@@ -8,14 +8,22 @@ public:
 	~Boid();
 
 	void Spawn(Vector3 _pos, Vector3 _scale, Vector3 _dir);
+	void SetAlive(bool isAlive);
+	void setVelocity(Vector3 velocity);
+	void setPosition(Vector3 position);
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
-	void SetAlive(bool isAlive);
 
+	Vector3 getVelocity() { return m_vel; }
+	Vector3 GetPos() { return m_pos; }
+	
 	bool isAlive() { return m_alive; }
+
+
 private:
 	Vector3 m_target; // I am travelling towards this location
 	Vector3 m_dir;
+	Vector3 m_vel;
 	Vector3 m_up;
 	Vector3 travelDirection;
 	int max = 100;

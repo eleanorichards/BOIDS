@@ -25,6 +25,8 @@ public:
 
 
 protected:
+	//ERROR for this when using vector iterators
+	//need to move it somehow
 	unique_ptr<Model>  m_model;
 
 	//needs a slightly different raster state that the VBGOs so create one and let them all use it

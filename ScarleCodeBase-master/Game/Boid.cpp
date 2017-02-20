@@ -23,8 +23,9 @@ void Boid::Tick(GameData * _GD)
 {
 	if (m_alive)
 	{
-		//Vec3 m_pos += m_dir (set to travelDirection in boids manager)
-		m_pos += m_dir * _GD->m_dt;
+		//m_pos += m_dir (set to travelDirection in boids manager)
+		//+= m_vel in boidsmanager
+		m_pos += m_vel * _GD->m_dt;
 	}
 	CMOGO::Tick(_GD);
 }
@@ -40,4 +41,14 @@ void Boid::Draw(DrawData * _DD)
 void Boid::SetAlive(bool isAlive)
 {
 	m_alive = isAlive;
+}
+
+void Boid::setVelocity(Vector3 velocity)
+{
+	m_vel = velocity;
+}
+
+void Boid::setPosition(Vector3 position)
+{
+	m_pos = position;
 }
