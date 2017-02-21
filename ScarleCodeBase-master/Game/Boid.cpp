@@ -26,6 +26,22 @@ void Boid::Tick(GameData * _GD)
 		m_pos += (m_vel + m_dir) * _GD->m_dt; //(m_dir is set to travelDirection in boids manager)
 		//+= m_vel in boidsmanager
 		//m_pos += m_vel * _GD->m_dt;
+		if (m_pos.x >= 50 )
+		{
+			m_dir.x *= -1;
+		}
+		if (m_pos.x <= 50)
+		{
+			m_dir.x *= -1;
+		}
+		if (m_pos.y >= 50)
+		{
+			m_dir.y *= -1;
+		}
+		if (m_pos.y <= -50)
+		{
+			m_dir.y *= -1;
+		}
 	}
 	CMOGO::Tick(_GD);
 }
