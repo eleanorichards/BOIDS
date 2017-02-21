@@ -9,9 +9,9 @@ BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * 
 	for (int i = 0; i < _numOfBoids; i++)
 	{
 		m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
-		initialLocation = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 		travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 	}
+		initialLocation = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 	//for (auto& iter = m_Boids.begin(); iter != m_Boids.end(); iter++)
 	//{
 	//	m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
@@ -60,6 +60,8 @@ void BoidManager::getUserInput(GameData * _GD)
 	}
 }
 
+
+//from redcwr website
 void BoidManager::moveBoid(Boid* _boid)
 {
 	Vector3 v1, v2, v3;
@@ -109,7 +111,7 @@ Vector3 BoidManager::alignment(Boid* _boid)
 		boidNumber++;
 	}
 	pvj = pvj / (boidNumber - 1);
-
+	//find out what 8 is
 	return ((pvj - _boid->getVelocity()) / 8);
 }
 
