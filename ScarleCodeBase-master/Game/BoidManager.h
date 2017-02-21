@@ -32,6 +32,8 @@ private:
 	Vector3 initialLocation;
 	Vector3 travelDirection;
 
-	int max = 100;
-	int min = -100;
+	float velocityModifier = 5;
+
+	int max = 10;
+	int min = -10;
 };

@@ -4,22 +4,18 @@
 
 BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
 {
-	
 	//boids.reserve(50);
 	//boids.assign(_numOfBoids, Boid(_modelFileName, _pd3dDevice, _EF));
-
 	for (int i = 0; i < _numOfBoids; i++)
 	{
 		m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
-
+		initialLocation = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
+		travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 	}
 	//for (auto& iter = m_Boids.begin(); iter != m_Boids.end(); iter++)
 	//{
 	//	m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
 	//}
-	initialLocation = Vector3(0.0f, 0.0f, 0.0f);
-	travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
-
 }
 
 BoidManager::~BoidManager()
@@ -74,8 +70,8 @@ void BoidManager::moveBoid(Boid* _boid)
 		v2 = separation(_boid);
 		v3 = alignment(_boid);
 
-		_boid->setVelocity(_boid->getVelocity() + v1 + v2 + v3);
-		_boid->SetPos(_boid->GetPos() + _boid->getVelocity());
+		_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) / velocityModifier);
+		//_boid->SetPos(_boid->GetPos() + _boid->getVelocity());
 	}
 }
 
@@ -89,7 +85,7 @@ Vector3 BoidManager::separation(Boid* _boid)
 		if (*it != _boid)
 		{
 			//if distance between is below 50
-			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < 50)
+			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < 25)
 			{
 				c = c - ((*it)->GetPos() - _boid->GetPos());
 			}
