@@ -4,18 +4,13 @@
 
 BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
 {
-	//boids.reserve(50);
-	//boids.assign(_numOfBoids, Boid(_modelFileName, _pd3dDevice, _EF));
 	for (int i = 0; i < _numOfBoids; i++)
 	{
 		m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
 		travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 	}
 		initialLocation = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
-	//for (auto& iter = m_Boids.begin(); iter != m_Boids.end(); iter++)
-	//{
-	//	m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
-	//}
+
 }
 
 BoidManager::~BoidManager()
@@ -27,8 +22,6 @@ void BoidManager::Tick(GameData * _GD)
 	//Spawn in boids
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-	//for (auto& it = m_Boids.begin(); it != boids.end(); it++)
-	//{
 		if (!(*it)->isAlive())
 		{
 			(*it)->Spawn(initialLocation, Vector3::One, travelDirection);

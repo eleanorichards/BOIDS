@@ -23,26 +23,43 @@ void Boid::Tick(GameData * _GD)
 {
 	if (m_alive)
 	{
-		m_pos += (m_vel + m_dir) * _GD->m_dt; //(m_dir is set to travelDirection in boids manager)
-		//+= m_vel in boidsmanager
+		if (m_pos.x >= 150 || m_pos.x <= -150 || m_pos.y >= 150 || m_pos.y <= -150)
+		{
+			inBoundingBox = false;	
+			//move to opposite end of box
+			m_pos = (m_vel + m_dir) * -1;
+		}
+		else
+		{
+			inBoundingBox = true;
+		}
+		if (inBoundingBox)
+		{
+			m_pos += (m_vel + m_dir) * _GD->m_dt; //(m_dir is set to travelDirection in boids manager)
+		}
+		else
+		{
+		//	m_pos -= (m_vel + m_dir) * _GD->m_dt;
+		}
+
 		//m_pos += m_vel * _GD->m_dt;
-		///Bounding Box
-	/*	if (m_pos.x >= 50 )
-		{
-			m_dir.x *= -1;
-		}
-		if (m_pos.x <= 50)
-		{
-			m_dir.x *= -1;
-		}
-		if (m_pos.y >= 50)
-		{
-			m_dir.y *= -1;
-		}
-		if (m_pos.y <= -50)
-		{
-			m_dir.y *= -1;
-		}*/
+		//if (m_pos.x >= 50 )
+		//{
+		////move mpos.x to corresponding negative value?
+		//	m_pos.x = -50;
+		//}
+		//if (m_pos.x <= -50)
+		//{
+		//	m_pos.x = 50;
+		//}
+		//if (m_pos.y >= 50)
+		//{
+		//	m_pos.y = -50;
+		//}
+		//if (m_pos.y <= -50)
+		//{
+		//	m_pos.y = 50;
+		//}
 	}
 	CMOGO::Tick(_GD);
 }

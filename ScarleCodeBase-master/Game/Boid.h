@@ -26,6 +26,7 @@ private:
 	Vector3 m_vel;
 	Vector3 m_up;
 	Vector3 travelDirection;
+	bool inBoundingBox = true;
 	int max = 100;
 	int min = 50;
 	bool m_alive;
