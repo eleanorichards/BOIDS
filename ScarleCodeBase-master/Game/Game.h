@@ -74,6 +74,8 @@ protected:
 
 	//Tick functions for each state
 	void PlayTick();
+	
+	int numOfBoids = 0;
 };
 
 

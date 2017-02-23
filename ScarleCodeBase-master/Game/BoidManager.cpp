@@ -9,7 +9,7 @@ BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * 
 		m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
 		travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 	}
-		initialLocation = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
+	initialLocation = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 
 }
 
@@ -32,6 +32,12 @@ void BoidManager::Tick(GameData * _GD)
 	}
 	//Get user input for new boids
 	getUserInput(_GD);
+	/*
+	list<Person> lp = new list<Person>();
+    Person p = new Person();
+    p.Name = "Smith";
+    lp.insert(p);
+	*/
 }
 
 void BoidManager::Draw(DrawData * _DD)
@@ -61,12 +67,15 @@ void BoidManager::moveBoid(Boid* _boid)
 
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		v1 = cohesion(_boid);
-		v2 = separation(_boid);
-		v3 = alignment(_boid);
+		if (*it != _boid)
+		{
+			v1 = cohesion(_boid);
+			v2 = separation(_boid);
+			v3 = alignment(_boid);
 
-		_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) / velocityModifier);
-		//_boid->SetPos(_boid->GetPos() + _boid->getVelocity());
+			_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) / velocityModifier);
+			//_boid->SetPos(_boid->GetPos() + _boid->getVelocity());
+		}
 	}
 }
 

@@ -113,14 +113,10 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	Terrain* terrain = new Terrain("table.cmo", _pd3dDevice, m_fxFactory, Vector3(100.0f, 0.0f, 100.0f), 0.0f, 0.0f, 0.0f, 0.25f * Vector3::One);
 	m_GameObjects.push_back(terrain);
 
-	//add some stuff to show off
-	VBSnail* snail = new VBSnail(_pd3dDevice, "../Assets/baseline.txt", 150, 0.98f, 0.09f * XM_PI, 0.4f, Color(1.0f, 0.0f, 0.0f, 1.0f), Color(0.0f, 0.0f, 1.0f, 1.0f));
-	snail->SetPos(Vector3(-100.0f, 0.0f, 100.0f));
-	snail->SetScale(2.0f);
-	m_GameObjects.push_back(snail);
+
 
 	TextGO2D* text = new TextGO2D("Test Text");
-	text->SetPos(Vector2(100, 10));
+	text->SetPos(Vector2(50, 10));
 	text->SetColour(Color((float*)&Colors::Yellow));
 	m_GameObject2Ds.push_back(text);
 };
@@ -244,10 +240,6 @@ void Game::PlayTick()
 	{
 		(*it)->Tick(m_GD);
 	}
-	for (list<GameObject2D *>::iterator it = m_GameObject2Ds.begin(); it != m_GameObject2Ds.end(); it++)
-	{
-		(*it)->Tick(m_GD);
-	}
 }
 
 void Game::Draw(ID3D11DeviceContext* _pd3dImmediateContext) 
@@ -270,14 +262,6 @@ void Game::Draw(ID3D11DeviceContext* _pd3dImmediateContext)
 	{
 		(*it)->Draw(m_DD);
 	}
-
-	// Draw sprite batch stuff 
-	m_DD2D->m_Sprites->Begin();
-	for (list<GameObject2D *>::iterator it = m_GameObject2Ds.begin(); it != m_GameObject2Ds.end(); it++)
-	{
-		(*it)->Draw(m_DD2D);
-	}
-	m_DD2D->m_Sprites->End();
 
 	//drawing text screws up the Depth Stencil State, this puts it back again!
 	_pd3dImmediateContext->OMSetDepthStencilState(m_states->DepthDefault(), 0);

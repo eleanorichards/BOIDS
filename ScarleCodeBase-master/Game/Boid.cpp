@@ -27,6 +27,7 @@ void Boid::Tick(GameData * _GD)
 		{
 			inBoundingBox = false;	
 			//move to opposite end of box
+			//CHANGE this currently moves all boids to the exact same point 
 			m_pos = (m_vel + m_dir) * -1;
 		}
 		else
@@ -37,29 +38,7 @@ void Boid::Tick(GameData * _GD)
 		{
 			m_pos += (m_vel + m_dir) * _GD->m_dt; //(m_dir is set to travelDirection in boids manager)
 		}
-		else
-		{
-		//	m_pos -= (m_vel + m_dir) * _GD->m_dt;
-		}
-
 		//m_pos += m_vel * _GD->m_dt;
-		//if (m_pos.x >= 50 )
-		//{
-		////move mpos.x to corresponding negative value?
-		//	m_pos.x = -50;
-		//}
-		//if (m_pos.x <= -50)
-		//{
-		//	m_pos.x = 50;
-		//}
-		//if (m_pos.y >= 50)
-		//{
-		//	m_pos.y = -50;
-		//}
-		//if (m_pos.y <= -50)
-		//{
-		//	m_pos.y = 50;
-		//}
 	}
 	CMOGO::Tick(_GD);
 }
