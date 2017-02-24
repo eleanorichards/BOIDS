@@ -9,8 +9,6 @@ BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * 
 		m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
 		travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 	}
-	initialLocation = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
-
 }
 
 BoidManager::~BoidManager()
@@ -32,12 +30,7 @@ void BoidManager::Tick(GameData * _GD)
 	}
 	//Get user input for new boids
 	getUserInput(_GD);
-	/*
-	list<Person> lp = new list<Person>();
-    Person p = new Person();
-    p.Name = "Smith";
-    lp.insert(p);
-	*/
+
 }
 
 void BoidManager::Draw(DrawData * _DD)
@@ -51,16 +44,16 @@ void BoidManager::Draw(DrawData * _DD)
 
 void BoidManager::getUserInput(GameData * _GD)
 {
-	if (_GD->m_keyboardState[DIK_A] & 0x80)
+	if (_GD->m_mouseState->rgbButtons[4])
 	{
 		float mouseX = _GD->m_mouseState->lX;
 		float mouseY = _GD->m_mouseState->lY;
 		initialLocation = Vector3(mouseX, mouseY, 0.0f);
 	}
+		
 }
 
 
-//from redcwr website
 void BoidManager::moveBoid(Boid* _boid)
 {
 	Vector3 v1, v2, v3;
@@ -89,7 +82,7 @@ Vector3 BoidManager::separation(Boid* _boid)
 		if (*it != _boid)
 		{
 			//if distance between is below 50
-			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < 25)
+			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < 10)
 			{
 				c = c - ((*it)->GetPos() - _boid->GetPos());
 			}
@@ -136,3 +129,8 @@ Vector3 BoidManager::cohesion(Boid* _boid)
 
 	return ((percievedCentre - _boid->GetPos()) / 100);
 }
+
+//void BoidManager::makeNewBoid(string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
+//{
+//
+//}

@@ -26,6 +26,8 @@ private:
 	Vector3 m_vel;
 	Vector3 m_up;
 	Vector3 travelDirection;
+	Vector3 randomDirection;
+
 	bool inBoundingBox = true;
 	int max = 100;
 	int min = 50;

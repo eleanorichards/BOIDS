@@ -16,12 +16,14 @@ public:
 	~BoidManager();
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
+	void makeNewBoid(string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF);
 	void getUserInput(GameData * _GD);
 	void moveBoid(Boid* _boid);
 
 	Vector3 separation(Boid* _boid);
 	Vector3 alignment(Boid* _boid);
 	Vector3 cohesion(Boid* _boid);
+
 
 	//GETTERS
 	int getNumOfBoids() { return numOfBoids; }
@@ -34,6 +36,7 @@ private:
 		
 	Vector3 initialLocation;
 	Vector3 travelDirection;
+	Vector3 randomDirection;
 
 	float velocityModifier = 10;
 

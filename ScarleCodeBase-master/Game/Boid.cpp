@@ -5,6 +5,7 @@ Boid::Boid(string _fileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF) :
 {
 	//initialise as not alive
 	m_alive = false;
+	randomDirection = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)))*0.02;
 }
 
 Boid::~Boid()
@@ -36,7 +37,7 @@ void Boid::Tick(GameData * _GD)
 		}
 		if (inBoundingBox)
 		{
-			m_pos += (m_vel + m_dir) * _GD->m_dt; //(m_dir is set to travelDirection in boids manager)
+			m_pos += (m_vel + m_dir + randomDirection) * _GD->m_dt; //(m_dir is set to travelDirection in boids manager)
 		}
 		//m_pos += m_vel * _GD->m_dt;
 	}
