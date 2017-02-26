@@ -5,7 +5,6 @@ Boid::Boid(string _fileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF) :
 {
 	//initialise as not alive
 	m_alive = false;
-	randomDirection = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)))*0.02;
 }
 
 Boid::~Boid()
@@ -22,6 +21,10 @@ void Boid::Spawn(Vector3 _pos, Vector3 _scale, Vector3 _dir)
 
 void Boid::Tick(GameData * _GD)
 {
+	if (_GD->m_dt * 0.2 > ((float)rand() / (float)RAND_MAX))
+	{
+		randomDirection = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)))*0.02;
+	}
 	if (m_alive)
 	{
 		if (m_pos.x >= 150 || m_pos.x <= -150 || m_pos.y >= 150 || m_pos.y <= -150)
@@ -38,6 +41,8 @@ void Boid::Tick(GameData * _GD)
 		if (inBoundingBox)
 		{
 			m_pos += (m_vel + m_dir + randomDirection) * _GD->m_dt; //(m_dir is set to travelDirection in boids manager)
+			//m_yaw += m_pos;
+			//setRotation()
 		}
 		//m_pos += m_vel * _GD->m_dt;
 	}
@@ -65,4 +70,10 @@ void Boid::setVelocity(Vector3 velocity)
 void Boid::setPosition(Vector3 position)
 {
 	m_pos = position;
+}
+
+void Boid::setRotation(float yaw, float pitch)
+{
+	m_yaw = yaw;
+	//m_pitch = pitch;
 }

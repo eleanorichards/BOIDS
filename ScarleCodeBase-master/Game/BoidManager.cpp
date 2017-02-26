@@ -4,6 +4,11 @@
 
 BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
 {
+
+	//ID3D11Device* m_pd3dDevice = _pd3dDevice;
+
+	//string m_modelFileName = _modelFileName;
+
 	for (int i = 0; i < _numOfBoids; i++)
 	{
 		m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
@@ -17,19 +22,20 @@ BoidManager::~BoidManager()
 
 void BoidManager::Tick(GameData * _GD)
 {
+	getUserInput(_GD);
 	//Spawn in boids
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if (!(*it)->isAlive())
+		if (!(*it)->isAlive() && placeBoid && it != m_Boids.end())
 		{
 			(*it)->Spawn(initialLocation, Vector3::One, travelDirection);
+			placeBoid = false;
 			break;
 		}
 		(*it)->Tick(_GD);
 		moveBoid(*it);
 	}
 	//Get user input for new boids
-	getUserInput(_GD);
 
 }
 
@@ -44,11 +50,20 @@ void BoidManager::Draw(DrawData * _DD)
 
 void BoidManager::getUserInput(GameData * _GD)
 {
-	if (_GD->m_mouseState->rgbButtons[4])
+	/*if (_GD->m_keyboardState[DIMOUSE_BUTTON1])
 	{
 		float mouseX = _GD->m_mouseState->lX;
 		float mouseY = _GD->m_mouseState->lY;
 		initialLocation = Vector3(mouseX, mouseY, 0.0f);
+	}*/
+	if (_GD->m_keyboardState[DIK_Q])
+	{
+		float mouseX = _GD->m_mouseState->lX;
+		float mouseY = _GD->m_mouseState->lY;
+		initialLocation = Vector3(mouseX, mouseY, 0.0f);
+		placeBoid = true;
+		numOfBoids++;
+		
 	}
 		
 }
@@ -67,6 +82,7 @@ void BoidManager::moveBoid(Boid* _boid)
 			v3 = alignment(_boid);
 
 			_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) / velocityModifier);
+			//_boid->setRotation(v1.x, v1.y);
 			//_boid->SetPos(_boid->GetPos() + _boid->getVelocity());
 		}
 	}
@@ -82,7 +98,7 @@ Vector3 BoidManager::separation(Boid* _boid)
 		if (*it != _boid)
 		{
 			//if distance between is below 50
-			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < 10)
+			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < proximity)
 			{
 				c = c - ((*it)->GetPos() - _boid->GetPos());
 			}
@@ -130,7 +146,7 @@ Vector3 BoidManager::cohesion(Boid* _boid)
 	return ((percievedCentre - _boid->GetPos()) / 100);
 }
 
-//void BoidManager::makeNewBoid(string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
-//{
-//
-//}
+void BoidManager::makeNewBoid(string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
+{
+
+}

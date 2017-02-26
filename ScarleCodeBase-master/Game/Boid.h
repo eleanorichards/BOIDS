@@ -11,6 +11,7 @@ public:
 	void SetAlive(bool isAlive);
 	void setVelocity(Vector3 velocity);
 	void setPosition(Vector3 position);
+	void setRotation(float yaw, float pitch);
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
 

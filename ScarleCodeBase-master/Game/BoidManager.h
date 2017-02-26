@@ -33,14 +33,17 @@ public:
 
 private:
 	list<Boid*> m_Boids;
-		
+	Boid* _Boid;
 	Vector3 initialLocation;
 	Vector3 travelDirection;
 	Vector3 randomDirection;
 
 	float velocityModifier = 10;
 
-	int numOfBoids = 15;
+	int numOfBoids = 1;
+	int proximity = 10;
 	int max = 10;
 	int min = -10;
+
+	bool placeBoid = false;
 };

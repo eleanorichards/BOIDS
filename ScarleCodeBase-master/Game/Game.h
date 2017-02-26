@@ -39,6 +39,7 @@ public:
 	bool Tick(); //tick the game state
 
 	void Draw(ID3D11DeviceContext* _pd3dImmediateContext); //render the current game state
+//	void makeNewBoid(string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF);
 
 protected:
 	DWORD m_playTime; //amount of time since the game started

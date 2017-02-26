@@ -94,7 +94,7 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	m_GameObjects.push_back(pPlayer);
 
 	//add Boid Manager
-	pBoidManager = new BoidManager(10, "BirdModelV1.cmo", _pd3dDevice, m_fxFactory);
+	pBoidManager = new BoidManager(20, "BirdModelV1.cmo", _pd3dDevice, m_fxFactory);
 	m_GameObjects.push_back(pBoidManager);
 	
 
@@ -265,7 +265,11 @@ void Game::Draw(ID3D11DeviceContext* _pd3dImmediateContext)
 
 	//drawing text screws up the Depth Stencil State, this puts it back again!
 	_pd3dImmediateContext->OMSetDepthStencilState(m_states->DepthDefault(), 0);
-};
+}
+//void Game::makeNewBoid(string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
+//{
+//}
+;
 
 
 
