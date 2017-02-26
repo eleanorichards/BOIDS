@@ -16,7 +16,6 @@ public:
 	~BoidManager();
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
-	void makeNewBoid(string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF);
 	void getUserInput(GameData * _GD);
 	void moveBoid(Boid* _boid);
 
@@ -38,12 +37,12 @@ private:
 	Vector3 travelDirection;
 	Vector3 randomDirection;
 
-	float velocityModifier = 10;
+	float velocityModifier = 2;
 
 	int numOfBoids = 1;
 	int proximity = 10;
 	int max = 10;
 	int min = -10;
-
+	int boidsInScene = 0;
 	bool placeBoid = false;
 };

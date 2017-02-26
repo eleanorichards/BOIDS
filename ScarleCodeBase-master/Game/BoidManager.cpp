@@ -4,15 +4,9 @@
 
 BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
 {
-
-	//ID3D11Device* m_pd3dDevice = _pd3dDevice;
-
-	//string m_modelFileName = _modelFileName;
-
 	for (int i = 0; i < _numOfBoids; i++)
 	{
 		m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
-		travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 	}
 }
 
@@ -28,15 +22,15 @@ void BoidManager::Tick(GameData * _GD)
 	{
 		if (!(*it)->isAlive() && placeBoid && it != m_Boids.end())
 		{
+			travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 			(*it)->Spawn(initialLocation, Vector3::One, travelDirection);
 			placeBoid = false;
+			boidsInScene ++;
 			break;
 		}
 		(*it)->Tick(_GD);
 		moveBoid(*it);
 	}
-	//Get user input for new boids
-
 }
 
 void BoidManager::Draw(DrawData * _DD)
@@ -50,21 +44,15 @@ void BoidManager::Draw(DrawData * _DD)
 
 void BoidManager::getUserInput(GameData * _GD)
 {
-	/*if (_GD->m_keyboardState[DIMOUSE_BUTTON1])
-	{
-		float mouseX = _GD->m_mouseState->lX;
-		float mouseY = _GD->m_mouseState->lY;
-		initialLocation = Vector3(mouseX, mouseY, 0.0f);
-	}*/
-	if (_GD->m_keyboardState[DIK_Q])
+	if (_GD->m_mouseState->rgbButtons[0] && placeBoid == false)
 	{
 		float mouseX = _GD->m_mouseState->lX;
 		float mouseY = _GD->m_mouseState->lY;
 		initialLocation = Vector3(mouseX, mouseY, 0.0f);
 		placeBoid = true;
 		numOfBoids++;
-		
 	}
+	
 		
 }
 
@@ -95,9 +83,9 @@ Vector3 BoidManager::separation(Boid* _boid)
 	Vector3 c;
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if (*it != _boid)
+		if (*it != _boid )
 		{
-			//if distance between is below 50
+			//if distance between is below proximity
 			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < proximity)
 			{
 				c = c - ((*it)->GetPos() - _boid->GetPos());
@@ -111,42 +99,37 @@ Vector3 BoidManager::separation(Boid* _boid)
 Vector3 BoidManager::alignment(Boid* _boid)
 {
 	Vector3 pvj;
-	int boidNumber = 0;
+	int x = 0;
 
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if (*it != _boid)
+		if (*it != _boid )
 		{
 			pvj += (*it)->getVelocity();
 		}
-		boidNumber++;
+		x++;
 	}
-	pvj = pvj / (boidNumber - 1);
+	pvj = pvj / (x - 1);
 	//find out what 8 is
-	return ((pvj - _boid->getVelocity()) / 8);
+	return ((pvj - _boid->getVelocity()) / 5);
 }
 
 //towards the average mass of other boids
 Vector3 BoidManager::cohesion(Boid* _boid)
 {
 	Vector3 percievedCentre;
-	int boidNumber = 0;
-
+	int y = 0;
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
 		//(*it)->GetPos();
 		if (*it != _boid)
 		{
 			percievedCentre += (*it)->GetPos();
-			boidNumber++;
+			//boidNumber++;
+			y++;
 		}
 	}
-	percievedCentre = percievedCentre / boidNumber;
+	percievedCentre = percievedCentre / y;
 
-	return ((percievedCentre - _boid->GetPos()) / 100);
-}
-
-void BoidManager::makeNewBoid(string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
-{
-
+	return ((percievedCentre - _boid->GetPos()) / 10);
 }

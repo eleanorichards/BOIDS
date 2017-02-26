@@ -80,7 +80,7 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
     ShowWindow( m_hWnd, _nCmdShow );
 
 	//Hide the mouse pointer
-	ShowCursor(false);
+	ShowCursor(true);
 	
     return S_OK;
 }

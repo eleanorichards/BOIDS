@@ -21,18 +21,20 @@ void Boid::Spawn(Vector3 _pos, Vector3 _scale, Vector3 _dir)
 
 void Boid::Tick(GameData * _GD)
 {
+	//set random direction every few seconds
 	if (_GD->m_dt * 0.2 > ((float)rand() / (float)RAND_MAX))
 	{
-		randomDirection = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)))*0.02;
+		randomDirection = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)))*0.001;
 	}
 	if (m_alive)
 	{
 		if (m_pos.x >= 150 || m_pos.x <= -150 || m_pos.y >= 150 || m_pos.y <= -150)
 		{
-			inBoundingBox = false;	
 			//move to opposite end of box
 			//CHANGE this currently moves all boids to the exact same point 
-			m_pos = (m_vel + m_dir) * -1;
+			inBoundingBox = false;	
+			m_pos = m_pos * -1;
+			//m_pos = m_vel == Vector3() ? Vector3() : Vector3();
 		}
 		else
 		{
@@ -40,11 +42,10 @@ void Boid::Tick(GameData * _GD)
 		}
 		if (inBoundingBox)
 		{
-			m_pos += (m_vel + m_dir + randomDirection) * _GD->m_dt; //(m_dir is set to travelDirection in boids manager)
+			m_pos += (m_vel)  * _GD->m_dt; //(m_dir is set to travelDirection in boids manager)
 			//m_yaw += m_pos;
-			//setRotation()
+			//m_pos += getVelocity();
 		}
-		//m_pos += m_vel * _GD->m_dt;
 	}
 	CMOGO::Tick(_GD);
 }
