@@ -37,12 +37,14 @@ private:
 	Vector3 travelDirection;
 	Vector3 randomDirection;
 
-	float velocityModifier = 1;
-
-	int numOfBoids = 1;
+	//float velocityModifier = 5;
+	float separationModifier = 1;
+	float alignmentModifier = 5;
+	float cohesionModifier = 5;
+	int numOfBoids = 0;
 	int proximity = 10;
 	int max = 10;
 	int min = -10;
-	int boidsInScene = 0;
+	int boidsInScene = 5;
 	bool placeBoid = false;
 };

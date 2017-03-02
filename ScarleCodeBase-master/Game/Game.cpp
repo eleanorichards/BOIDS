@@ -94,12 +94,12 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	m_GameObjects.push_back(pPlayer);
 
 	//add Boid Manager
-	pBoidManager = new BoidManager(20, "BirdModelV1.cmo", _pd3dDevice, m_fxFactory);
+	pBoidManager = new BoidManager(20, "JEMINA vase -up.cmo", _pd3dDevice, m_fxFactory);
 	m_GameObjects.push_back(pBoidManager);
 	
 
 	//add a secondary camera
-	m_TPScam = new TPSCamera(0.25f * XM_PI, AR, 1.0f, 10000.0f, pPlayer, Vector3::UnitY, Vector3(0.0f, 10.0f, 50.0f));
+	m_TPScam = new TPSCamera(0.25f * XM_PI, AR, 1.0f, 10000.0f, pPlayer, Vector3::UnitY, Vector3(0.0f, 10.0f, 30.0f));
 	m_GameObjects.push_back(m_TPScam);
 
 	//create DrawData struct and populate its pointers

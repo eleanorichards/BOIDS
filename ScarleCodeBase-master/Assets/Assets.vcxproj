@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="italic.spritefont" />
+    <None Include="Vase\JEMINA vase -up.fbx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader.fx">
@@ -153,8 +154,8 @@
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Bird\BirdModelV1.fbx" />
+    <MeshContentTask Include="Pig\pig.fbx" />
     <MeshContentTask Include="Table\table.FBX" />
-    <MeshContentTask Include="Vase\JEMINA vase -up.fbx" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="baseline.txt" />

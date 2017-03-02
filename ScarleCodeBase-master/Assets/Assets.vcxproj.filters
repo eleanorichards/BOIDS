@@ -24,6 +24,9 @@
     <None Include="shader.fx">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Vase\JEMINA vase -up.fbx">
+      <Filter>Models</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Bird\BirdModelV1.fbx">
@@ -32,7 +35,7 @@
     <MeshContentTask Include="Table\table.FBX">
       <Filter>Models</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Vase\JEMINA vase -up.fbx">
+    <MeshContentTask Include="Pig\pig.fbx">
       <Filter>Models</Filter>
     </MeshContentTask>
   </ItemGroup>

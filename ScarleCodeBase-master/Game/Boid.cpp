@@ -24,16 +24,16 @@ void Boid::Tick(GameData * _GD)
 	//set random direction every few seconds
 	if (_GD->m_dt * 0.2 > ((float)rand() / (float)RAND_MAX))
 	{
-		randomDirection = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)))*0.01;
+		randomDirection = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)))*0.1;
 	}
 	if (m_alive)
 	{
-		if (m_pos.x >= 150 || m_pos.x <= -150 || m_pos.y >= 150 || m_pos.y <= -150 || m_pos.z >= 150 || m_pos.z <= -150)
+		if (m_pos.x >= 100 || m_pos.x <= -100 || m_pos.y >= 100 || m_pos.y <= -100 || m_pos.z >= 100 || m_pos.z <= -100)
 		{
 			//move to opposite end of box
 			//CHANGE this currently moves all boids to the exact same point 
 			inBoundingBox = false;	
-			m_pos = m_pos * -1;
+			m_pos *= (-1);
 			//m_pos = m_vel == Vector3() ? Vector3() : Vector3();
 		}
 		else
