@@ -25,11 +25,9 @@ void BoidManager::Tick(GameData * _GD)
 			travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
 			(*it)->Spawn(initialLocation, Vector3::One, travelDirection);
 			placeBoid = false;
-			boidsInScene ++;
-			break;
 		}
 		(*it)->Tick(_GD);
-		moveBoid(*it);
+		moveBoid(*it, _GD);
 	}
 }
 
@@ -50,14 +48,13 @@ void BoidManager::getUserInput(GameData * _GD)
 		float mouseY = _GD->m_mouseState->lY;
 		initialLocation = Vector3(mouseX, mouseY, 0.0f);
 		placeBoid = true;
-		numOfBoids++;
 	}
 	
 		
 }
 
 
-void BoidManager::moveBoid(Boid* _boid)
+void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 {
 	Vector3 v1, v2, v3;
 
@@ -65,9 +62,9 @@ void BoidManager::moveBoid(Boid* _boid)
 	{
 		if (*it != _boid)
 		{
-			v1 = cohesion(_boid);
-			v2 = separation(_boid);
-			v3 = alignment(_boid);
+			v1 = cohesion(_boid, _GD)  *_GD->m_dt;
+			v2 = separation(_boid, _GD) *_GD->m_dt;
+			v3 = alignment(_boid, _GD) *_GD->m_dt;
 
 			_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) / velocityModifier);
 			//_boid->setRotation(v1.x, v1.y);
@@ -77,7 +74,7 @@ void BoidManager::moveBoid(Boid* _boid)
 }
 
 //not going too close to other boids
-Vector3 BoidManager::separation(Boid* _boid)
+Vector3 BoidManager::separation(Boid* _boid, GameData * _GD)
 {
 	//please think of a better name for this
 	Vector3 c;
@@ -88,7 +85,7 @@ Vector3 BoidManager::separation(Boid* _boid)
 			//if distance between is below proximity
 			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < proximity)
 			{
-				c = c - ((*it)->GetPos() - _boid->GetPos());
+				c -= ((*it)->GetPos() - _boid->GetPos()) ;
 			}
 		}
 	}
@@ -96,7 +93,7 @@ Vector3 BoidManager::separation(Boid* _boid)
 }
 
 //aligning velocity with other boids
-Vector3 BoidManager::alignment(Boid* _boid)
+Vector3 BoidManager::alignment(Boid* _boid, GameData * _GD)
 {
 	Vector3 pvj;
 	int x = 0;
@@ -105,17 +102,17 @@ Vector3 BoidManager::alignment(Boid* _boid)
 	{
 		if (*it != _boid )
 		{
-			pvj += (*it)->getVelocity();
+			pvj += ((*it)->getVelocity())  * _GD->m_dt;
 		}
 		x++;
 	}
 	pvj = pvj / (x - 1);
 	//find out what 8 is
-	return ((pvj - _boid->getVelocity()) / 5);
+	return ((pvj - _boid->getVelocity())/ 5);
 }
 
 //towards the average mass of other boids
-Vector3 BoidManager::cohesion(Boid* _boid)
+Vector3 BoidManager::cohesion(Boid* _boid, GameData * _GD)
 {
 	Vector3 percievedCentre;
 	int y = 0;
@@ -124,12 +121,12 @@ Vector3 BoidManager::cohesion(Boid* _boid)
 		//(*it)->GetPos();
 		if (*it != _boid)
 		{
-			percievedCentre += (*it)->GetPos();
+			percievedCentre += ((*it)->GetPos()) * _GD->m_dt;
 			//boidNumber++;
 			y++;
 		}
 	}
 	percievedCentre = percievedCentre / y;
 
-	return ((percievedCentre - _boid->GetPos()) / 10);
+	return ((percievedCentre - _boid->GetPos()) / 5);
 }

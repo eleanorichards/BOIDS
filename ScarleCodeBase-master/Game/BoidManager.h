@@ -17,11 +17,11 @@ public:
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
 	void getUserInput(GameData * _GD);
-	void moveBoid(Boid* _boid);
+	void moveBoid(Boid* _boid, GameData * _GD);
 
-	Vector3 separation(Boid* _boid);
-	Vector3 alignment(Boid* _boid);
-	Vector3 cohesion(Boid* _boid);
+	Vector3 separation(Boid* _boid, GameData * _GD);
+	Vector3 alignment(Boid* _boid, GameData * _GD);
+	Vector3 cohesion(Boid* _boid, GameData * _GD);
 
 
 	//GETTERS
@@ -37,7 +37,7 @@ private:
 	Vector3 travelDirection;
 	Vector3 randomDirection;
 
-	float velocityModifier = 2;
+	float velocityModifier = 1;
 
 	int numOfBoids = 1;
 	int proximity = 10;
