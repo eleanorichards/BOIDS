@@ -57,5 +57,6 @@ private:
 	int max = 10;
 	int min = -10;
 	int boidsInScene = 0;
+	int menuChoice = 0;
 	bool placeBoid = false;
 };

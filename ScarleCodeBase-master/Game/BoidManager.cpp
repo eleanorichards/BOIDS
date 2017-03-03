@@ -53,11 +53,18 @@ void BoidManager::getUserInput(GameData * _GD)
 		boidsInScene++;
 		placeBoid = true;
 	}
-	if (_GD->m_keyboardState[DIK_K])
-	{
-
-	}
-		
+	if (_GD->m_keyboardState[DIK_1])
+		alignmentModifier++;	
+	if (_GD->m_keyboardState[DIK_2])
+		alignmentModifier--;
+	if (_GD->m_keyboardState[DIK_3])
+		separationModifier++;
+	if (_GD->m_keyboardState[DIK_4])
+		separationModifier--;
+	if (_GD->m_keyboardState[DIK_5])
+		cohesionModifier++;
+	if (_GD->m_keyboardState[DIK_6])
+		cohesionModifier--;
 }
 
 
