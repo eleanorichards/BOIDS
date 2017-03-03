@@ -1,6 +1,9 @@
 #include "BoidManager.h"
 #include <dinput.h>
 #include "GameData.h"
+#include <sstream>
+#include "TextGO2D.h"
+#include "DrawData2D.h"
 
 BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
 {
@@ -47,6 +50,7 @@ void BoidManager::getUserInput(GameData * _GD)
 		float mouseX = _GD->m_mouseState->lX;
 		float mouseY = _GD->m_mouseState->lY;
 		initialLocation = Vector3(mouseX, mouseY, 0.0f);
+		boidsInScene++;
 		placeBoid = true;
 	}
 	
@@ -133,4 +137,43 @@ Vector3 BoidManager::cohesion(Boid* _boid, GameData * _GD)
 	percievedCentre = percievedCentre / y;
 	//Cohesion modifier
 	return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
+}
+
+std::string BoidManager::getNumOfBoidsAsString()
+{
+	std::stringstream bString;
+	bString << boidsInScene;
+	return bString.str();
+}
+
+std::string BoidManager::getAlignmentAsString()
+{
+	std::stringstream aString;
+	aString << alignmentModifier;
+	return aString.str();
+}
+
+
+std::string BoidManager::getSeparationAsString()
+{
+	std::stringstream bString;
+	bString << separationModifier;
+	return bString.str();
+}
+
+
+std::string BoidManager::getCohesionAsString()
+{
+	std::stringstream cString;
+	cString << cohesionModifier;
+	return cString.str();
+}
+
+void BoidManager::DrawScreenSpace(DrawData2D* _DD2D)
+{
+	TextGO2D boidNumText("Boids: " + getNumOfBoidsAsString() + "\nAlignment: " + getAlignmentAsString() + "\nSeparation: " + getSeparationAsString() + "\nCohesion: " + getCohesionAsString());
+	boidNumText.SetPos(Vector2(0.0f, 60.0f));
+	boidNumText.SetColour(Color((float*)&DirectX::Colors::Green));
+	boidNumText.SetScale(0.5f);
+	boidNumText.Draw(_DD2D);	
 }

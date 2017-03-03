@@ -12,6 +12,7 @@
 #include "drawdata.h"
 #include "DrawData2D.h"
 #include "BoidManager.h"
+#include "TextGO2D.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -94,7 +95,7 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	m_GameObjects.push_back(pPlayer);
 
 	//add Boid Manager
-	pBoidManager = new BoidManager(20, "JEMINA vase -up.cmo", _pd3dDevice, m_fxFactory);
+	pBoidManager = new BoidManager(20, "BirdModelV1.cmo", _pd3dDevice, m_fxFactory);
 	m_GameObjects.push_back(pBoidManager);
 	
 
@@ -115,10 +116,10 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 
 
 
-	TextGO2D* text = new TextGO2D("Test Text");
+	/*TextGO2D* text = new TextGO2D("Test Text");
 	text->SetPos(Vector2(50, 10));
 	text->SetColour(Color((float*)&Colors::Yellow));
-	m_GameObject2Ds.push_back(text);
+	m_GameObject2Ds.push_back(text);*/
 };
 
 
@@ -161,6 +162,7 @@ Game::~Game()
 		delete (*it);
 	}
 	m_GameObject2Ds.clear();
+
 
 	//clear away CMO render system
 	delete m_states;
@@ -242,6 +244,11 @@ void Game::PlayTick()
 	}
 }
 
+void Game::displayHUD(DrawData2D * _DD)
+{
+	
+}
+
 void Game::Draw(ID3D11DeviceContext* _pd3dImmediateContext) 
 {
 	//set immediate context of the graphics device
@@ -257,18 +264,25 @@ void Game::Draw(ID3D11DeviceContext* _pd3dImmediateContext)
 	//update the constant buffer for the rendering of VBGOs
 	VBGO::UpdateConstantBuffer(m_DD);
 
+	
+
 	//draw all objects
 	for (list<GameObject *>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
 	{
 		(*it)->Draw(m_DD);
 	}
+	
+	m_DD2D->m_Sprites->Begin(SpriteSortMode_Deferred, m_states->NonPremultiplied());
+	for (list<GameObject *>::iterator it = m_GameObjects.begin(); it != m_GameObjects.end(); it++)
+	{
+		(*it)->DrawScreenSpace(m_DD2D);
+	}
+	m_DD2D->m_Sprites->End();
 
 	//drawing text screws up the Depth Stencil State, this puts it back again!
 	_pd3dImmediateContext->OMSetDepthStencilState(m_states->DepthDefault(), 0);
 }
-//void Game::makeNewBoid(string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
-//{
-//}
+
 ;
 
 

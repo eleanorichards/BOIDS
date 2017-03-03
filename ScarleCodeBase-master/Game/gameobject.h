@@ -15,6 +15,8 @@ class Camera;
 struct ID3D11DeviceContext;
 struct GameData;
 struct DrawData;
+struct DrawData2D;
+
 
 class GameObject
 {
@@ -24,6 +26,7 @@ public:
 
 	virtual void Tick(GameData* _GD);
 	virtual void Draw(DrawData* _DD) = 0;
+	virtual void DrawScreenSpace(DrawData2D* _DD2D);
 
 	//getters
 	Vector3		GetPos() { return m_pos; }

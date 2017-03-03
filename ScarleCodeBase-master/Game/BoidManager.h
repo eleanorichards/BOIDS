@@ -1,5 +1,6 @@
 #pragma once
 #include "gameobject.h"
+
 #include <string>
 #include "Model.h"
 #include "Boid.h"
@@ -16,6 +17,8 @@ public:
 	~BoidManager();
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
+	virtual void DrawScreenSpace(DrawData2D* _DD2D);
+
 	void getUserInput(GameData * _GD);
 	void moveBoid(Boid* _boid, GameData * _GD);
 
@@ -26,6 +29,14 @@ public:
 
 	//GETTERS
 	int getNumOfBoids() { return numOfBoids; }
+	
+	std::string getNumOfBoidsAsString();
+	std::string getAlignmentAsString();
+	std::string getSeparationAsString();
+	std::string getCohesionAsString();
+
+
+
 
 	//SETTERS
 	void setNumOfBoids(int _numOfBoids) { numOfBoids = _numOfBoids; }
@@ -33,18 +44,19 @@ public:
 private:
 	list<Boid*> m_Boids;
 	Boid* _Boid;
+
 	Vector3 initialLocation;
 	Vector3 travelDirection;
 	Vector3 randomDirection;
 
 	//float velocityModifier = 5;
 	float separationModifier = 1;
-	float alignmentModifier = 5;
-	float cohesionModifier = 5;
+	float alignmentModifier = 3;
+	float cohesionModifier = 15;
 	int numOfBoids = 0;
 	int proximity = 10;
 	int max = 10;
 	int min = -10;
-	int boidsInScene = 5;
+	int boidsInScene = 0;
 	bool placeBoid = false;
 };

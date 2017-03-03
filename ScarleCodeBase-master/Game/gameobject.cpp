@@ -41,3 +41,7 @@ void GameObject::Tick(GameData* _GD)
 	//zero acceleration ready for the next time round
 	m_acc = Vector3::Zero;
 }
+
+void GameObject::DrawScreenSpace(DrawData2D * _DD2D)
+{
+}

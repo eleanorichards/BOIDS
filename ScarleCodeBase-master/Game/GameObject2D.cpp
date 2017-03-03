@@ -12,3 +12,7 @@ GameObject2D::GameObject2D()
 	m_rotation = 0.0f;
 	m_scale = Vector2::One;
 }
+
+void GameObject2D::DrawScreenSpace(DrawData2D * _DD)
+{
+}
