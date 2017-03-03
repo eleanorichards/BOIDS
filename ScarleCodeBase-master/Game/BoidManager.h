@@ -49,9 +49,8 @@ private:
 	Vector3 travelDirection;
 	Vector3 randomDirection;
 
-	//float velocityModifier = 5;
+	float alignmentModifier = 2;
 	float separationModifier = 1;
-	float alignmentModifier = 3;
 	float cohesionModifier = 15;
 	int numOfBoids = 0;
 	int proximity = 10;

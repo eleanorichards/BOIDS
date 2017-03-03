@@ -53,7 +53,10 @@ void BoidManager::getUserInput(GameData * _GD)
 		boidsInScene++;
 		placeBoid = true;
 	}
-	
+	if (_GD->m_keyboardState[DIK_K])
+	{
+
+	}
 		
 }
 
@@ -174,6 +177,6 @@ void BoidManager::DrawScreenSpace(DrawData2D* _DD2D)
 	TextGO2D boidNumText("Boids: " + getNumOfBoidsAsString() + "\nAlignment: " + getAlignmentAsString() + "\nSeparation: " + getSeparationAsString() + "\nCohesion: " + getCohesionAsString());
 	boidNumText.SetPos(Vector2(0.0f, 60.0f));
 	boidNumText.SetColour(Color((float*)&DirectX::Colors::Green));
-	boidNumText.SetScale(0.5f);
+	boidNumText.SetScale(0.4f);
 	boidNumText.Draw(_DD2D);	
 }

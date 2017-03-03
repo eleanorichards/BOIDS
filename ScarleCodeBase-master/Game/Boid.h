@@ -30,7 +30,9 @@ private:
 	Vector3 randomDirection;
 
 	bool inBoundingBox = true;
+	bool m_alive;
 	int max = 100;
 	int min = 50;
-	bool m_alive;
+	float maxVelocity = 30;
+	float minVelocity = -30;
 };
