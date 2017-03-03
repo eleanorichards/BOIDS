@@ -12,6 +12,7 @@ public:
 	void setVelocity(Vector3 velocity);
 	void setPosition(Vector3 position);
 	void setRotation(float yaw, float pitch);
+	void setAcceleration(Vector3 _acceleration);
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
 
@@ -28,11 +29,13 @@ private:
 	Vector3 m_up;
 	Vector3 travelDirection;
 	Vector3 randomDirection;
+	Vector3 acceleration;
 
 	bool inBoundingBox = true;
 	bool m_alive;
 	int max = 100;
 	int min = 50;
-	float maxVelocity = 30;
-	float minVelocity = -30;
+	//so they don't speed around everywhere
+	float maxAcceleration = 1;
+	float minAcceleration = -1;
 };

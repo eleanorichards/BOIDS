@@ -83,7 +83,6 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 //not going too close to other boids
 Vector3 BoidManager::separation(Boid* _boid, GameData * _GD)
 {
-	//please think of a better name for this
 	Vector3 c;
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
@@ -97,7 +96,7 @@ Vector3 BoidManager::separation(Boid* _boid, GameData * _GD)
 		}
 	}
 	//seperation modifier
-	return c / separationModifier;
+	return c * separationModifier;
 }
 
 //aligning velocity with other boids

@@ -53,7 +53,7 @@ private:
 	float separationModifier = 1;
 	float cohesionModifier = 15;
 	int numOfBoids = 0;
-	int proximity = 10;
+	int proximity = 20;
 	int max = 10;
 	int min = -10;
 	int boidsInScene = 0;
