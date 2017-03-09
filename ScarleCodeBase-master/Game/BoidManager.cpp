@@ -25,8 +25,7 @@ void BoidManager::Tick(GameData * _GD)
 	{
 		if (!(*it)->isAlive() && placeBoid && it != m_Boids.end())
 		{
-			travelDirection = Vector3(((rand() % max - min) + min), ((rand() % max - min) + min), ((rand() % max - min) + min));
-			(*it)->Spawn(initialLocation, Vector3::One, travelDirection);
+			(*it)->Spawn(initialLocation, Vector3::One, travelDirection, _GD);
 			placeBoid = false;
 		}
 		(*it)->Tick(_GD);
@@ -54,17 +53,17 @@ void BoidManager::getUserInput(GameData * _GD)
 		placeBoid = true;
 	}
 	if (_GD->m_keyboardState[DIK_1])
-		alignmentModifier++;	
+		alignmentModifier--;	
 	if (_GD->m_keyboardState[DIK_2])
-		alignmentModifier--;
+		alignmentModifier++;
 	if (_GD->m_keyboardState[DIK_3])
-		separationModifier++;
-	if (_GD->m_keyboardState[DIK_4])
 		separationModifier--;
+	if (_GD->m_keyboardState[DIK_4])
+		separationModifier++;
 	if (_GD->m_keyboardState[DIK_5])
-		cohesionModifier++;
-	if (_GD->m_keyboardState[DIK_6])
 		cohesionModifier--;
+	if (_GD->m_keyboardState[DIK_6])
+		cohesionModifier++;
 }
 
 
@@ -74,11 +73,11 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if (*it != _boid)
+		if (*it != _boid & (*it)->isAlive())
 		{
-			v1 = cohesion(_boid, _GD)  *_GD->m_dt;
-			v2 = separation(_boid, _GD) *_GD->m_dt;
-			v3 = alignment(_boid, _GD) *_GD->m_dt;
+			v1 = cohesion(_boid) * _GD->m_dt;
+			v2 = separation(_boid)* _GD->m_dt;
+			v3 = alignment(_boid)* _GD->m_dt;
 
 			_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) );
 			//_boid->setRotation(v1.x, v1.y);
@@ -87,13 +86,30 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 	}
 }
 
+//towards the centre of mass of other boids
+Vector3 BoidManager::cohesion(Boid* _boid)
+{
+	Vector3 percievedCentre;
+	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
+	{
+		//(*it)->GetPos();
+		if (*it != _boid && (*it)->isAlive())
+		{
+			percievedCentre += ((*it)->GetPos());
+		}
+	}
+	percievedCentre = percievedCentre / boidsInScene;
+	//Cohesion modifier
+	return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
+}
+
 //not going too close to other boids
-Vector3 BoidManager::separation(Boid* _boid, GameData * _GD)
+Vector3 BoidManager::separation(Boid* _boid)
 {
 	Vector3 c;
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if (*it != _boid )
+		if (*it != _boid && (*it)->isAlive())
 		{
 			//if distance between is below proximity
 			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < proximity)
@@ -107,46 +123,24 @@ Vector3 BoidManager::separation(Boid* _boid, GameData * _GD)
 }
 
 //aligning velocity with other boids
-Vector3 BoidManager::alignment(Boid* _boid, GameData * _GD)
+Vector3 BoidManager::alignment(Boid* _boid)
 {
 	Vector3 pvj;
-	int x = 0;
-
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if (*it != _boid )
+		if (*it != _boid && (*it)->isAlive())
 		{
-			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < 1)
+			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < 10)
 			{
-				pvj += ((*it)->getVelocity())  * _GD->m_dt;
+				pvj += ((*it)->getVelocity());
 			}
 		}
-		x++;
 	}
-	pvj = pvj / (x - 1);
+	pvj = pvj / (boidsInScene - 1);
 	//Alignment modifier
 	return ((pvj - _boid->getVelocity()) / alignmentModifier);
 }
 
-//towards the average mass of other boids
-Vector3 BoidManager::cohesion(Boid* _boid, GameData * _GD)
-{
-	Vector3 percievedCentre;
-	int y = 0;
-	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
-	{
-		//(*it)->GetPos();
-		if (*it != _boid)
-		{
-			percievedCentre += ((*it)->GetPos()) * _GD->m_dt;
-			//boidNumber++;
-			y++;
-		}
-	}
-	percievedCentre = percievedCentre / y;
-	//Cohesion modifier
-	return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
-}
 
 std::string BoidManager::getNumOfBoidsAsString()
 {

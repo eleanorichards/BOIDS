@@ -22,9 +22,9 @@ public:
 	void getUserInput(GameData * _GD);
 	void moveBoid(Boid* _boid, GameData * _GD);
 
-	Vector3 separation(Boid* _boid, GameData * _GD);
-	Vector3 alignment(Boid* _boid, GameData * _GD);
-	Vector3 cohesion(Boid* _boid, GameData * _GD);
+	Vector3 separation(Boid* _boid);
+	Vector3 alignment(Boid* _boid);
+	Vector3 cohesion(Boid* _boid);
 
 
 	//GETTERS
@@ -59,4 +59,5 @@ private:
 	int boidsInScene = 0;
 	int menuChoice = 0;
 	bool placeBoid = false;
+
 };

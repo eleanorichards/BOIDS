@@ -7,7 +7,7 @@ public:
 	Boid(string _fileName, ID3D11Device* _pd3dDevice, IEffectFactory* _EF);
 	~Boid();
 
-	void Spawn(Vector3 _pos, Vector3 _scale, Vector3 _dir);
+	void Spawn(Vector3 _pos, Vector3 _scale, Vector3 _dir, GameData* _GD);
 	void SetAlive(bool isAlive);
 	void setVelocity(Vector3 velocity);
 	void setPosition(Vector3 position);
@@ -28,7 +28,7 @@ private:
 	Vector3 m_vel;
 	Vector3 m_up;
 	Vector3 travelDirection;
-	Vector3 randomDirection;
+	Vector3 initialDirection;
 	Vector3 acceleration;
 
 	bool inBoundingBox = true;
