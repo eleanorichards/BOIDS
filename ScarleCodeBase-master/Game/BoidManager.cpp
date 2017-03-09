@@ -44,15 +44,13 @@ void BoidManager::Draw(DrawData * _DD)
 
 void BoidManager::getUserInput(GameData * _GD)
 {
-	if (_GD->m_mouseState->rgbButtons[0] && placeBoid == false)
+	if (_GD->m_mouseState->rgbButtons[0] * _GD->m_dt && placeBoid == false)
 	{
-		float mouseX = _GD->m_mouseState->lX;
-		float mouseY = _GD->m_mouseState->lY;
-		initialLocation = Vector3(mouseX, mouseY, 0.0f);
+		initialLocation = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)));
 		boidsInScene++;
 		placeBoid = true;
 	}
-	if (_GD->m_keyboardState[DIK_1])
+	if (_GD->m_keyboardState[DIK_1] )
 		alignmentModifier--;	
 	if (_GD->m_keyboardState[DIK_2])
 		alignmentModifier++;
@@ -66,7 +64,12 @@ void BoidManager::getUserInput(GameData * _GD)
 		cohesionModifier++;
 }
 
+/*	....................................
+	Cycle through every boid on screen
+	Apply boid-like change in velocity for 90% of frames 
 
+	....................................
+*/
 void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 {
 	Vector3 v1, v2, v3;
@@ -76,12 +79,15 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 		if (*it != _boid & (*it)->isAlive())
 		{
 			v1 = cohesion(_boid) * _GD->m_dt;
-			v2 = separation(_boid)* _GD->m_dt;
-			v3 = alignment(_boid)* _GD->m_dt;
+			v2 = separation(_boid) * _GD->m_dt;
+			v3 = alignment(_boid) * _GD->m_dt;
 
-			_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) );
-			//_boid->setRotation(v1.x, v1.y);
-			//_boid->SetPos(_boid->GetPos() + _boid->getVelocity());
+			if (_GD->m_dt * 0.5 > ((float)rand() / (float)RAND_MAX))
+			{
+				_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) );
+
+			}
+			
 		}
 	}
 }
@@ -130,7 +136,7 @@ Vector3 BoidManager::alignment(Boid* _boid)
 	{
 		if (*it != _boid && (*it)->isAlive())
 		{
-			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < 10)
+			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < 100)
 			{
 				pvj += ((*it)->getVelocity());
 			}

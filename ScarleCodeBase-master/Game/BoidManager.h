@@ -53,9 +53,11 @@ private:
 	float separationModifier = 1;
 	float cohesionModifier = 15;
 	int numOfBoids = 0;
-	int proximity = 20;
+	int proximity = 15;
 	int max = 10;
 	int min = -10;
+	int startMax = 100;
+	int startMin = -100;
 	int boidsInScene = 0;
 	int menuChoice = 0;
 	bool placeBoid = false;

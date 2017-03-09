@@ -29,18 +29,18 @@ void Boid::Tick(GameData * _GD)
 
 	if (m_alive)
 	{
-		inBoundingBox = true;
 		if (m_pos.x >= 500 || m_pos.x <= -500 || m_pos.y >= 500 || m_pos.y <= -500 || m_pos.z >= 500 || m_pos.z <= -500)
 		{
 			//move to opposite end of box
 			//CHANGE this currently moves all boids to the exact same point 
-			inBoundingBox = false;	
 			m_pos *= (-1);
 			//m_pos = m_vel == Vector3() ? Vector3() : Vector3();
 		}
-		else if (inBoundingBox)
+		else 
 		{
+			
 			setAcceleration(((m_vel)) * _GD->m_dt);
+			
 			m_pos += acceleration;//(m_dir is set to travelDirection in boids manager)
 		}
 	}
