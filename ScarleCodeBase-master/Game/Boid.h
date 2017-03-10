@@ -1,10 +1,11 @@
 #pragma once
-#include "CMOGO.h"
+#include "VBGO.h"
+#include "vertex.h"
 
-class Boid : public CMOGO
+class Boid : public VBGO
 {
 public:
-	Boid(string _fileName, ID3D11Device* _pd3dDevice, IEffectFactory* _EF);
+	Boid(ID3D11Device* _pd3dDevice);
 	~Boid();
 
 	void Spawn(Vector3 _pos, Vector3 _scale, Vector3 _dir, GameData* _GD);
@@ -13,6 +14,7 @@ public:
 	void setPosition(Vector3 position);
 	void setRotation(float yaw, float pitch);
 	void setAcceleration(Vector3 _acceleration);
+
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
 
@@ -38,4 +40,7 @@ private:
 	//so they don't speed around everywhere
 	float maxAcceleration = 1;
 	float minAcceleration = -1;
+
+	myVertex* m_vertices;
+
 };

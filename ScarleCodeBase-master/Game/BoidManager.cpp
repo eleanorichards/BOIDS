@@ -9,7 +9,7 @@ BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * 
 {
 	for (int i = 0; i < _numOfBoids; i++)
 	{
-		m_Boids.push_back(new Boid(_modelFileName, _pd3dDevice, _EF));
+		m_Boids.push_back(new Boid(_pd3dDevice));
 	}
 }
 
