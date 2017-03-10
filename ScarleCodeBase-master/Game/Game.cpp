@@ -91,16 +91,21 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	m_GameObjects.push_back(m_light);
 
 	//add Player
-	Player* pPlayer = new Player("BirdModelV1.cmo", _pd3dDevice, m_fxFactory);
-	m_GameObjects.push_back(pPlayer);
+	/*Player* pPlayer = new Player("Boid.cmo", _pd3dDevice, m_fxFactory);
+	m_GameObjects.push_back(pPlayer);*/
+
+	m_camControl = new CameraControl();
+	m_camControl->SetPos(Vector3(0.0f, 0.0f, 0.0f));
+	m_GameObjects.push_back(m_camControl);
+
 
 	//add Boid Manager
-	pBoidManager = new BoidManager(20, "BirdModelV1.cmo", _pd3dDevice, m_fxFactory);
+	pBoidManager = new BoidManager(20, "Boid.cmo", _pd3dDevice, m_fxFactory);
 	m_GameObjects.push_back(pBoidManager);
 	
 
 	//add a secondary camera
-	m_TPScam = new TPSCamera(0.25f * XM_PI, AR, 1.0f, 10000.0f, pPlayer, Vector3::UnitY, Vector3(0.0f, 30.0f, 30.0f));
+	m_TPScam = new TPSCamera(0.25f * XM_PI, AR, 1.0f, 10000.0f, m_camControl, Vector3::UnitY, Vector3(0.0f, 30.0f, 30.0f));
 	m_GameObjects.push_back(m_TPScam);
 
 	//create DrawData struct and populate its pointers

@@ -52,7 +52,7 @@ void Player::Tick(GameData* _GD)
 	}
 
 	//change orinetation of player
-	/*float rotSpeed = 2.0f * _GD->m_dt;
+	float rotSpeed = 2.0f * _GD->m_dt;
 	if (_GD->m_keyboardState[DIK_A] & 0x80)
 	{
 		m_yaw += rotSpeed;
@@ -68,7 +68,7 @@ void Player::Tick(GameData* _GD)
 	if (_GD->m_keyboardState[DIK_S] & 0x80)
 	{
 		m_pitch -= rotSpeed;
-	}*/
+	}
 
 	//move player up and down
 	if (_GD->m_keyboardState[DIK_R] & 0x80)

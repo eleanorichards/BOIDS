@@ -1,10 +1,25 @@
 #include "Boid.h"
 #include "GameData.h"
 
-Boid::Boid(string _fileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF) : CMOGO(_fileName, _pd3dDevice, _EF)
+Boid::Boid(string _fileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF) : CMOGO(_fileName, _pd3dDevice, _EF) // :VBGO
 {
 	//initialise as not alive
 	m_alive = false;
+	/*for (int i = -(m_size - 1) / 2; i<(m_size - 1) / 2; i++)
+	{
+		for (int j = -(m_size - 1) / 2; j<(m_size - 1) / 2; j++)
+		{
+			//top
+			m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+			m_vertices[vert++].Pos = Vector3((float)i, 0.5f * (float)(m_size - 1), (float)j);
+			m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+			m_vertices[vert++].Pos = Vector3((float)i, 0.5f * (float)(m_size - 1), (float)(j + 1));
+			m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+			m_vertices[vert++].Pos = Vector3((float)(i + 1), 0.5f * (float)(m_size - 1), (float)j);
+		}
+
+	}
+*/
 }
 
 Boid::~Boid()

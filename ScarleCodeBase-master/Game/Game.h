@@ -13,6 +13,7 @@
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
 #include "Audio.h"
+#include "CameraControl.h"
 
 using std::list;
 using std::unique_ptr;
@@ -22,12 +23,14 @@ using namespace DirectX;
 class GameObject;
 class GameObject2D;
 class Camera;
+class CameraControl;
 class TPSCamera;
 struct GameData;
 struct DrawData;
 struct DrawData2D;
 class Light;
 class BoidManager;
+class Player;
 
 class Game
 {
@@ -46,9 +49,11 @@ protected:
 	DWORD m_playTime; //amount of time since the game started
 
 	Camera* m_cam; //principle camera
+	CameraControl* m_camControl;
 	TPSCamera* m_TPScam;//TPS cam
 	Light* m_light; //base light
-	BoidManager* pBoidManager;
+	BoidManager* pBoidManager;//boid manager
+	Player* pPlayer;//player
 
 	list<GameObject *> m_GameObjects; //data structure storing all GameObjects of this Game
 	list<GameObject2D *> m_GameObject2Ds;//ditto 2D objects

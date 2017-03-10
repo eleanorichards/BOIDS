@@ -35,7 +35,7 @@
     <MeshContentTask Include="Table\table.FBX">
       <Filter>Models</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Pig\pig.fbx">
+    <MeshContentTask Include="BoidBird\Boid.FBX">
       <Filter>Models</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -60,5 +60,10 @@
     <ImageContentTask Include="logo_small.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="\vtimxrajzbuard4hsj78.jpeg">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

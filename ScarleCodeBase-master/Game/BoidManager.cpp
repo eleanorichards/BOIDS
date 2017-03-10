@@ -25,7 +25,7 @@ void BoidManager::Tick(GameData * _GD)
 	{
 		if (!(*it)->isAlive() && placeBoid && it != m_Boids.end())
 		{
-			(*it)->Spawn(initialLocation, Vector3::One, travelDirection, _GD);
+			(*it)->Spawn(initialLocation, 0.2*Vector3::One, travelDirection, _GD);
 			placeBoid = false;
 		}
 		(*it)->Tick(_GD);
