@@ -61,8 +61,6 @@ Boid::~Boid()
 void Boid::Spawn(Vector3 _pos, Vector3 _scale, Vector3 _dir, GameData* _GD)
 {
 	//set random direction every few seconds
-
-	
 	initialDirection = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)))*0.1;
 	
 	m_alive = true; // turn this enemy ON

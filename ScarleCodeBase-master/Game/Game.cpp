@@ -100,7 +100,7 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 
 
 	//add Boid Manager
-	pBoidManager = new BoidManager(20, "Boid.cmo", _pd3dDevice, m_fxFactory);
+	pBoidManager = new BoidManager(100, _pd3dDevice);
 	m_GameObjects.push_back(pBoidManager);
 	
 
@@ -116,7 +116,7 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	m_DD->m_light = m_light;
 
 	//add random content to show the various what you've got here
-	Terrain* terrain = new Terrain("table.cmo", _pd3dDevice, m_fxFactory, Vector3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.1f * Vector3::One);
+	Terrain* terrain = new Terrain("table.cmo", _pd3dDevice, m_fxFactory, Vector3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f, 0.05f * Vector3::One);
 	m_GameObjects.push_back(terrain);
 };
 

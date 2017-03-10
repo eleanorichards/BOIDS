@@ -5,7 +5,7 @@
 #include "TextGO2D.h"
 #include "DrawData2D.h"
 
-BoidManager::BoidManager(int _numOfBoids, string _modelFileName, ID3D11Device * _pd3dDevice, IEffectFactory * _EF)
+BoidManager::BoidManager(int _numOfBoids, ID3D11Device * _pd3dDevice)
 {
 	for (int i = 0; i < _numOfBoids; i++)
 	{
@@ -28,6 +28,7 @@ void BoidManager::Tick(GameData * _GD)
 			(*it)->Spawn(initialLocation, 0.2*Vector3::One, travelDirection, _GD);
 			placeBoid = false;
 		}
+		if ((*it)->isAlive())
 		(*it)->Tick(_GD);
 		moveBoid(*it, _GD);
 	}
@@ -38,32 +39,33 @@ void BoidManager::Draw(DrawData * _DD)
 	//for (auto& it = boids.begin(); it != boids.end(); it++)
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
+		if((*it)->isAlive())
 		(*it)->Draw(_DD);
 	}
 }
 
 void BoidManager::getUserInput(GameData * _GD)
 {
-	if (_GD->m_mouseState->rgbButtons[0] * _GD->m_dt && placeBoid == false)
+	if (_GD->m_keyboardState[DIK_Q] && placeBoid == false)
 	{
-		initialLocation = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)));
+		initialLocation = Vector3(((float)(rand() % startMax) - startMin), ((float)(rand() % startMax) - startMin), (((float)(rand() % startMax) - startMin)));
 		boidsInScene++;
 		placeBoid = true;
 	}
 	if (alignmentModifier >= 1 || separationModifier >= -1 || cohesionModifier >= -1)
 	{
 
-		if (_GD->m_keyboardState[DIK_1] * _GD->m_dt)
+		if (_GD->m_keyboardState[DIK_1] && !(_GD->m_prevKeyboardState[DIK_1]))
 			alignmentModifier -= 0.5f;
-		if (_GD->m_keyboardState[DIK_2] * _GD->m_dt)
+		else if (_GD->m_keyboardState[DIK_2] && !(_GD->m_prevKeyboardState[DIK_2]))
 			alignmentModifier += 0.5f;
-		if (_GD->m_keyboardState[DIK_3] * _GD->m_dt)
+		else if (_GD->m_keyboardState[DIK_3] && !(_GD->m_prevKeyboardState[DIK_3]))
 			proximity -= 0.5f;
-		if (_GD->m_keyboardState[DIK_4] * _GD->m_dt)
+		else if (_GD->m_keyboardState[DIK_4] && !(_GD->m_prevKeyboardState[DIK_4]))
 			proximity += 0.5f;
-		if (_GD->m_keyboardState[DIK_5] * _GD->m_dt)
+		else if (_GD->m_keyboardState[DIK_5] && !(_GD->m_prevKeyboardState[DIK_5]))
 			cohesionModifier -= 0.5f;
-		if (_GD->m_keyboardState[DIK_6] * _GD->m_dt)
+		else if (_GD->m_keyboardState[DIK_6] && !(_GD->m_prevKeyboardState[DIK_6]))
 			cohesionModifier += 0.5f;
 	}
 }
@@ -179,7 +181,7 @@ std::string BoidManager::getCohesionAsString()
 
 void BoidManager::DrawScreenSpace(DrawData2D* _DD2D)
 {
-	TextGO2D boidNumText("Boids: " + getNumOfBoidsAsString() + "\nAlignment (1-2): " + getAlignmentAsString() + "\nSeparation (3-4): " + getSeparationAsString() + "\nCohesion (5-6): " + getCohesionAsString());
+	TextGO2D boidNumText("Boids: (Q)" + getNumOfBoidsAsString() + "\nAlignment (1-2): " + getAlignmentAsString() + "\nSeparation (3-4): " + getSeparationAsString() + "\nCohesion (5-6): " + getCohesionAsString());
 	boidNumText.SetPos(Vector2(0.0f, 60.0f));
 	boidNumText.SetColour(Color((float*)&DirectX::Colors::Green));
 	boidNumText.SetScale(0.4f);
