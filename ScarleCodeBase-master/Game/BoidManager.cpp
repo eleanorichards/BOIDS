@@ -82,11 +82,10 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 			v2 = separation(_boid) * _GD->m_dt;
 			v3 = alignment(_boid) * _GD->m_dt;
 
-			if (_GD->m_dt * 0.5 > ((float)rand() / (float)RAND_MAX))
-			{
+			
 				_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) );
 
-			}
+			
 			
 		}
 	}

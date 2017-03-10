@@ -38,9 +38,10 @@ void Boid::Tick(GameData * _GD)
 		}
 		else 
 		{
-			
-			setAcceleration(((m_vel)) * _GD->m_dt);
-			
+			if (_GD->m_dt * 2 > ((float)rand() / (float)RAND_MAX))
+			{
+				setAcceleration(((m_vel)) * _GD->m_dt);
+			}
 			m_pos += acceleration;//(m_dir is set to travelDirection in boids manager)
 		}
 	}

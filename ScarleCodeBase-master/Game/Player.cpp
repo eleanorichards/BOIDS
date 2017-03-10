@@ -39,20 +39,20 @@ void Player::Tick(GameData* _GD)
 		Vector3 forwardMove = 40.0f * Vector3::Forward;
 		Matrix rotMove = Matrix::CreateRotationY(m_yaw);
 		forwardMove = Vector3::Transform(forwardMove, rotMove);
-		if (_GD->m_keyboardState[DIK_W] & 0x80)
+		/*if (_GD->m_keyboardState[DIK_W] & 0x80)
 		{
 			m_acc += forwardMove;
 		}
 		if (_GD->m_keyboardState[DIK_S] & 0x80)
 		{
 			m_acc -= forwardMove;
-		}
+		}*/
 		break;
 	}
 	}
 
 	//change orinetation of player
-	float rotSpeed = 2.0f * _GD->m_dt;
+	/*float rotSpeed = 2.0f * _GD->m_dt;
 	if (_GD->m_keyboardState[DIK_A] & 0x80)
 	{
 		m_yaw += rotSpeed;
@@ -61,6 +61,14 @@ void Player::Tick(GameData* _GD)
 	{
 		m_yaw -= rotSpeed;
 	}
+	if (_GD->m_keyboardState[DIK_W] & 0x80)
+	{
+		m_pitch += rotSpeed;
+	}
+	if (_GD->m_keyboardState[DIK_S] & 0x80)
+	{
+		m_pitch -= rotSpeed;
+	}*/
 
 	//move player up and down
 	if (_GD->m_keyboardState[DIK_R] & 0x80)
