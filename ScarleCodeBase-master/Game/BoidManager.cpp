@@ -50,24 +50,27 @@ void BoidManager::getUserInput(GameData * _GD)
 		boidsInScene++;
 		placeBoid = true;
 	}
-	if (_GD->m_keyboardState[DIK_1] )
-		alignmentModifier--;	
-	if (_GD->m_keyboardState[DIK_2])
-		alignmentModifier++;
-	if (_GD->m_keyboardState[DIK_3])
-		separationModifier--;
-	if (_GD->m_keyboardState[DIK_4])
-		separationModifier++;
-	if (_GD->m_keyboardState[DIK_5])
-		cohesionModifier--;
-	if (_GD->m_keyboardState[DIK_6])
-		cohesionModifier++;
+	if (alignmentModifier >= 1 || separationModifier >= -1 || cohesionModifier >= -1)
+	{
+
+		if (_GD->m_keyboardState[DIK_1] * _GD->m_dt)
+			alignmentModifier -= 0.5f;
+		if (_GD->m_keyboardState[DIK_2] * _GD->m_dt)
+			alignmentModifier += 0.5f;
+		if (_GD->m_keyboardState[DIK_3] * _GD->m_dt)
+			proximity -= 0.5f;
+		if (_GD->m_keyboardState[DIK_4] * _GD->m_dt)
+			proximity += 0.5f;
+		if (_GD->m_keyboardState[DIK_5] * _GD->m_dt)
+			cohesionModifier -= 0.5f;
+		if (_GD->m_keyboardState[DIK_6] * _GD->m_dt)
+			cohesionModifier += 0.5f;
+	}
 }
 
 /*	....................................
 	Cycle through every boid on screen
 	Apply boid-like change in velocity for 90% of frames 
-
 	....................................
 */
 void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
@@ -83,10 +86,7 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 			v3 = alignment(_boid) * _GD->m_dt;
 
 			
-				_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) );
-
-			
-			
+			_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) );
 		}
 	}
 }
@@ -165,7 +165,7 @@ std::string BoidManager::getAlignmentAsString()
 std::string BoidManager::getSeparationAsString()
 {
 	std::stringstream bString;
-	bString << separationModifier;
+	bString << proximity;
 	return bString.str();
 }
 
@@ -179,7 +179,7 @@ std::string BoidManager::getCohesionAsString()
 
 void BoidManager::DrawScreenSpace(DrawData2D* _DD2D)
 {
-	TextGO2D boidNumText("Boids: " + getNumOfBoidsAsString() + "\nAlignment: " + getAlignmentAsString() + "\nSeparation: " + getSeparationAsString() + "\nCohesion: " + getCohesionAsString());
+	TextGO2D boidNumText("Boids: " + getNumOfBoidsAsString() + "\nAlignment (1-2): " + getAlignmentAsString() + "\nSeparation (3-4): " + getSeparationAsString() + "\nCohesion (5-6): " + getCohesionAsString());
 	boidNumText.SetPos(Vector2(0.0f, 60.0f));
 	boidNumText.SetColour(Color((float*)&DirectX::Colors::Green));
 	boidNumText.SetScale(0.4f);

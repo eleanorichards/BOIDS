@@ -85,7 +85,7 @@ void Boid::Tick(GameData * _GD)
 		}
 		else 
 		{
-			if (_GD->m_dt * 2 > ((float)rand() / (float)RAND_MAX))
+			if (_GD->m_dt * 5 > ((float)rand() / (float)RAND_MAX))
 			{
 				setAcceleration(((m_vel)) * _GD->m_dt);
 			}

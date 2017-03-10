@@ -38,8 +38,8 @@ private:
 	int max = 100;
 	int min = 50;
 	//so they don't speed around everywhere
-	float maxAcceleration = 1;
-	float minAcceleration = -1;
+	float maxAcceleration = 0.8;
+	float minAcceleration = -0.8;
 
 	myVertex* m_vertices;
 
