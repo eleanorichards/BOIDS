@@ -71,7 +71,7 @@ protected:
 	unsigned char			m_prevKeyboardState[256];
 	DIMOUSESTATE			m_mouseState;
 	HWND m_hWnd;
-
+	
 	GameData* m_GD;			//Data to be shared to all Game Objects as they are ticked
 	DrawData* m_DD;			//Data to be shared to all Game Objects as they are drawn
 	DrawData2D * m_DD2D;	//Data to be passed by game to all 2D Game Objects via Draw 

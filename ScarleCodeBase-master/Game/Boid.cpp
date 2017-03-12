@@ -1,6 +1,6 @@
 #include "Boid.h"
 #include "GameData.h"
-
+#include <iostream>
 Boid::Boid(ID3D11Device * _pd3dDevice) 
 {
 	//initialise as not alive
@@ -20,12 +20,12 @@ Boid::Boid(ID3D11Device * _pd3dDevice)
 		m_vertices[i].texCoord = Vector2::One;
 	}
 
-	m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+	m_vertices[vert].Color = Color(1.0f, 0.0f, 1.0f, 1.0f);
 	m_vertices[vert++].Pos = Vector3(0, 0, 0);
-	m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
+	m_vertices[vert].Color = Color(1.0f, 0.0f, 1.0f, 1.0f);
 	m_vertices[vert++].Pos = Vector3(0, 0, 4);
-	m_vertices[vert].Color = Color(1.0f, 0.0f, 0.0f, 1.0f);
-	m_vertices[vert++].Pos = Vector3(4, 0, 2);
+	m_vertices[vert].Color = Color(0.0f, 1.0f, 0.0f, 1.0f);
+	m_vertices[vert++].Pos = Vector3(5, 0, 2);
 
 	for (int i = 0; i<m_numPrims; i++)
 	{
@@ -71,23 +71,21 @@ void Boid::Spawn(Vector3 _pos, Vector3 _scale, Vector3 _dir, GameData* _GD)
 
 void Boid::Tick(GameData * _GD)
 {
-
 	if (m_alive)
 	{
-		if (m_pos.x >= 500 || m_pos.x <= -500 || m_pos.y >= 500 || m_pos.y <= -500 || m_pos.z >= 500 || m_pos.z <= -500)
+		if (m_pos.x >= 200 || m_pos.x <= -200 || m_pos.y >= 200 || m_pos.y <= -200 || m_pos.z >= 200 || m_pos.z <= -200)
 		{
 			//move to opposite end of box
 			//CHANGE this currently moves all boids to the exact same point 
-			m_pos *= (-1);
+			m_pos *= (-0.9);
 			//m_pos = m_vel == Vector3() ? Vector3() : Vector3();
 		}
 		else 
 		{
-			if (_GD->m_dt * 5 > ((float)rand() / (float)RAND_MAX))
-			{
-				setAcceleration(((m_vel)) * _GD->m_dt);
-			}
-			m_pos += acceleration;//(m_dir is set to travelDirection in boids manager)
+			setAcceleration((m_vel));
+			
+			m_pos += m_acc;//(m_dir is set to travelDirection in boids manager)
+			std::cout << m_pos.x << ", " << m_pos.y << ", " << m_pos.x << "\n";
 		}
 	}
 	VBGO::Tick(_GD);
@@ -125,7 +123,7 @@ void Boid::setRotation(float yaw, float pitch)
 
 void Boid::setAcceleration(Vector3 _acceleration)
 {
-	
+	//cap acceleration in any direction to the set MAX
 	if (_acceleration.x > maxAcceleration)
 	{
 		_acceleration.x = maxAcceleration;
@@ -151,5 +149,5 @@ void Boid::setAcceleration(Vector3 _acceleration)
 		_acceleration.z = minAcceleration;
 	}
 
-	acceleration = _acceleration;
+	m_acc = _acceleration;
 }

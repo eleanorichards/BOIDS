@@ -49,10 +49,15 @@ private:
 	Vector3 travelDirection;
 	Vector3 randomDirection;
 
-	float alignmentModifier = 2;
+	Vector3 fseparation;
+	Vector3 fcohesion;
+	Vector3 falignment;
+
+	float alignmentModifier = 1;
 	float separationModifier = 1;
-	float cohesionModifier = 15;
+	float cohesionModifier = 8;
 	float proximity = 5;
+	float searchRadius = 0.1;
 	int numOfBoids = 0;
 	int max = 10;
 	int min = -10;

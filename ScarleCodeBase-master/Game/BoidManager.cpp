@@ -4,6 +4,8 @@
 #include <sstream>
 #include "TextGO2D.h"
 #include "DrawData2D.h"
+#include <iostream>
+#include <stdio.h>
 
 BoidManager::BoidManager(int _numOfBoids, ID3D11Device * _pd3dDevice)
 {
@@ -81,14 +83,16 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if (*it != _boid & (*it)->isAlive())
+		if (*it != _boid && (*it)->isAlive())
 		{
 			v1 = cohesion(_boid) * _GD->m_dt;
 			v2 = separation(_boid) * _GD->m_dt;
 			v3 = alignment(_boid) * _GD->m_dt;
-
 			
+			/*if (_GD->m_dt * 0.9 > ((float)rand() / (float)RAND_MAX))
+			{*/
 			_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) );
+			//}
 		}
 	}
 }
@@ -118,15 +122,20 @@ Vector3 BoidManager::separation(Boid* _boid)
 	{
 		if (*it != _boid && (*it)->isAlive())
 		{
+			/*float x = Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos());
+			float y = Vector3::Distance((*it)->GetPos(), _boid->GetPos());
+			std::cout << x << " , " << y;*/
+
 			//if distance between is below proximity
-			if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < proximity)
+			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < proximity)
 			{
-				c -= ((*it)->GetPos() - _boid->GetPos());
+
+				fseparation -= ((*it)->GetPos() - _boid->GetPos());
 			}
 		}
 	}
-	//seperation modifier
-	return c * separationModifier;
+	//separation modifier
+	return fseparation;
 }
 
 //aligning velocity with other boids
@@ -137,7 +146,7 @@ Vector3 BoidManager::alignment(Boid* _boid)
 	{
 		if (*it != _boid && (*it)->isAlive())
 		{
-			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < 100)
+			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < searchRadius)
 			{
 				pvj += ((*it)->getVelocity());
 			}
