@@ -38,13 +38,10 @@ private:
 	int max = 100;
 	int min = 50;
 	//so they don't speed around everywhere
-<<<<<<< HEAD
+
 	float maxAcceleration = 7;
 	float minAcceleration = -7;
-=======
-	float maxAcceleration = 0.8;
-	float minAcceleration = -0.8;
->>>>>>> parent of c47dce8... I think they're not flocking to 0,0,0 anymore
+
 
 	myVertex* m_vertices;
 

@@ -52,10 +52,9 @@ private:
 	float alignmentModifier = 2;
 	float separationModifier = 1;
 	float cohesionModifier = 80;
-	float proximity = 5;
 	float searchRadius = 10;
-	float cohesionModifier = 15;
 	float proximity = 5;
+
 	int numOfBoids = 0;
 	int max = 10;
 	int min = -10;

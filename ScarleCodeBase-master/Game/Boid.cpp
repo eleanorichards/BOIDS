@@ -1,5 +1,6 @@
 #include "Boid.h"
 #include "GameData.h"
+#include <iostream>
 
 Boid::Boid(ID3D11Device * _pd3dDevice) 
 {
@@ -83,18 +84,10 @@ void Boid::Tick(GameData * _GD)
 		}
 		else 
 		{
-<<<<<<< HEAD
 			setAcceleration((m_vel) * _GD->m_dt);
-			
-			m_pos += m_acc;//(m_dir is set to travelDirection in boids manager)
+			m_pos += acceleration;
 			std::cout << m_pos.x << ", " << m_pos.y << ", " << m_pos.x << "\n";
-=======
-			if (_GD->m_dt * 5 > ((float)rand() / (float)RAND_MAX))
-			{
-				setAcceleration(((m_vel)) * _GD->m_dt);
-			}
-			m_pos += acceleration;//(m_dir is set to travelDirection in boids manager)
->>>>>>> parent of c47dce8... I think they're not flocking to 0,0,0 anymore
+
 		}
 	}
 	VBGO::Tick(_GD);

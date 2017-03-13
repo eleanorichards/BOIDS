@@ -96,13 +96,16 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 //towards the centre of mass of other boids
 Vector3 BoidManager::cohesion(Boid* _boid)
 {
-	Vector3 percievedCentre;
+	Vector3 percievedCentre = Vector3::Zero;
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		//(*it)->GetPos();
-		if (*it != _boid && (*it)->isAlive())
+		if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < proximity)
 		{
-			percievedCentre += ((*it)->GetPos());
+			if (*it != _boid && (*it)->isAlive())
+			{
+				percievedCentre += ((*it)->GetPos());
+			}
+
 		}
 	}
 	percievedCentre = percievedCentre / boidsInScene;
