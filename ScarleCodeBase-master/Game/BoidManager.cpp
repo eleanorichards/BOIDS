@@ -130,12 +130,12 @@ Vector3 BoidManager::separation(Boid* _boid)
 			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < proximity)
 			{
 
-				fseparation -= ((*it)->GetPos() - _boid->GetPos());
+				c -= ((*it)->GetPos() - _boid->GetPos());
 			}
 		}
 	}
 	//separation modifier
-	return fseparation;
+	return c;
 }
 
 //aligning velocity with other boids

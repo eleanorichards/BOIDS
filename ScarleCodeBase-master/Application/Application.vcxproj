@@ -96,7 +96,7 @@
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\Game</IncludePath>
-    <LibraryPath>$(SolutionDir)..\Lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir);..\Lib\um\x86;..\Bin\Desktop_2015\$(Platform)\$(Configuration)\</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\Lib;$(SolutionDir);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir);..\Lib\um\x86;..\Bin\Desktop_2015\$(Platform)\$(Configuration)\</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
     <LinkIncremental>true</LinkIncremental>

@@ -14,6 +14,8 @@
 #include "BoidManager.h"
 #include "TextGO2D.h"
 
+#include "AntTweakBar.h"
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -100,7 +102,7 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 
 
 	//add Boid Manager
-	pBoidManager = new BoidManager(100, _pd3dDevice);
+	pBoidManager = new BoidManager(25, _pd3dDevice);
 	m_GameObjects.push_back(pBoidManager);
 	
 

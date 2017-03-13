@@ -82,7 +82,7 @@ void Boid::Tick(GameData * _GD)
 		}
 		else 
 		{
-			setAcceleration((m_vel));
+			setAcceleration((m_vel) * _GD->m_dt);
 			
 			m_pos += m_acc;//(m_dir is set to travelDirection in boids manager)
 			std::cout << m_pos.x << ", " << m_pos.y << ", " << m_pos.x << "\n";
