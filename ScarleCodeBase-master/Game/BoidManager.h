@@ -26,6 +26,7 @@ public:
 	Vector3 alignment(Boid* _boid);
 	Vector3 cohesion(Boid* _boid);
 
+	Vector3 seek(Vector3 _target, Vector3 _pos, Vector3 _vel);
 
 	//GETTERS
 	int getNumOfBoids() { return numOfBoids; }
@@ -55,9 +56,9 @@ private:
 
 	float alignmentModifier = 1;
 	float separationModifier = 1;
-	float cohesionModifier = 80;
-	float proximity = 5;
-	float searchRadius = 10;
+	float cohesionModifier = 1;
+	float proximity = 10;
+	float searchRadius = 30;
 	int numOfBoids = 0;
 	int max = 10;
 	int min = -10;

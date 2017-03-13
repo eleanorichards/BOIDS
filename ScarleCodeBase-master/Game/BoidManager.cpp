@@ -103,15 +103,44 @@ Vector3 BoidManager::cohesion(Boid* _boid)
 	Vector3 percievedCentre;
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		//(*it)->GetPos();
 		if (*it != _boid && (*it)->isAlive())
 		{
-			percievedCentre += ((*it)->GetPos());
+			float d = Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos());
+			if (d < searchRadius)
+			{
+				percievedCentre += ((*it)->GetPos());
+			}
 		}
 	}
-	percievedCentre = percievedCentre / boidsInScene;
-	//Cohesion modifier
-	return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
+	if (boidsInScene > 0)
+	{
+		percievedCentre /= boidsInScene;
+		return seek(percievedCentre, _boid->GetPos(), _boid->getVelocity());
+	}
+	else
+	{
+		return Vector3::Zero;
+	}
+	//percievedCentre = percievedCentre / boidsInScene;
+
+	//return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
+}
+
+Vector3 BoidManager::seek(Vector3 _target, Vector3 _pos, Vector3 _vel)
+{
+	float maxSpeed = 10.0f;
+	float maxForce = 10.0f;
+
+	Vector3 target = _target - _pos;
+	target.Normalize();
+	target *= maxSpeed;
+	target -= _vel;
+	target = XMVector3ClampLength(target, 0.0f, maxSpeed);
+
+	Vector3 seek = target - _vel;
+	seek = XMVector3ClampLength(seek, 0.0f, maxForce);
+
+	return seek;
 }
 
 //not going too close to other boids
@@ -129,7 +158,6 @@ Vector3 BoidManager::separation(Boid* _boid)
 			//if distance between is below proximity
 			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < proximity)
 			{
-
 				c -= ((*it)->GetPos() - _boid->GetPos());
 			}
 		}
@@ -146,10 +174,10 @@ Vector3 BoidManager::alignment(Boid* _boid)
 	{
 		if (*it != _boid && (*it)->isAlive())
 		{
-			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < searchRadius)
-			{
+		//	if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < searchRadius)
+		//	{
 				pvj += ((*it)->getVelocity());
-			}
+		//	}
 		}
 	}
 	pvj = pvj / (boidsInScene - 1);
