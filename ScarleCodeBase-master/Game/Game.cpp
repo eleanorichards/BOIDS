@@ -14,7 +14,7 @@
 #include "BoidManager.h"
 #include "TextGO2D.h"
 
-#include "AntTweakBar.h"
+//#include "AntTweakBar.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;

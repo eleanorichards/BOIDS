@@ -75,18 +75,19 @@ void Boid::Tick(GameData * _GD)
 
 	if (m_alive)
 	{
-		if (m_pos.x >= 500 || m_pos.x <= -500 || m_pos.y >= 500 || m_pos.y <= -500 || m_pos.z >= 500 || m_pos.z <= -500)
+		if (m_pos.x >= 200 || m_pos.x <= -200 || m_pos.y >= 200 || m_pos.y <= -200 || m_pos.z >= 200 || m_pos.z <= -200)
 		{
 			//move to opposite end of box
 			//CHANGE this currently moves all boids to the exact same point 
-			m_pos *= (-1);
+			m_pos *= (-0.9);
 			//m_pos = m_vel == Vector3() ? Vector3() : Vector3();
 		}
 		else 
 		{
 			setAcceleration((m_vel) * _GD->m_dt);
-			m_pos += acceleration;
-			std::cout << m_pos.x << ", " << m_pos.y << ", " << m_pos.x << "\n";
+			m_pos += (acceleration * 10);
+
+			//std::cout << m_pos.x << ", " << m_pos.y << ", " << m_pos.x << "\n";
 
 		}
 	}

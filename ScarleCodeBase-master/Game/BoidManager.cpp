@@ -29,8 +29,10 @@ void BoidManager::Tick(GameData * _GD)
 			placeBoid = false;
 		}
 		if ((*it)->isAlive())
-		(*it)->Tick(_GD);
-		moveBoid(*it, _GD);
+		{
+			(*it)->Tick(_GD);
+			moveBoid(*it, _GD);
+		}
 	}
 }
 
@@ -39,8 +41,10 @@ void BoidManager::Draw(DrawData * _DD)
 	//for (auto& it = boids.begin(); it != boids.end(); it++)
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if((*it)->isAlive())
-		(*it)->Draw(_DD);
+		if ((*it)->isAlive())
+		{
+			(*it)->Draw(_DD);
+		}
 	}
 }
 
@@ -52,7 +56,7 @@ void BoidManager::getUserInput(GameData * _GD)
 		boidsInScene++;
 		placeBoid = true;
 	}
-	if (alignmentModifier >= 1 || separationModifier >= -1 || cohesionModifier >= -1)
+	if (alignmentModifier > 0 || separationModifier > -1 || cohesionModifier > -1)
 	{
 
 		if (_GD->m_keyboardState[DIK_1] && !(_GD->m_prevKeyboardState[DIK_1]))
@@ -72,7 +76,8 @@ void BoidManager::getUserInput(GameData * _GD)
 
 /*	....................................
 	Cycle through every boid on screen
-	Apply boid-like change in velocity for 90% of frames 
+	Apply boid-like change in velocity 
+	for 90% of frames 
 	....................................
 */
 void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
@@ -81,12 +86,11 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if (*it != _boid & (*it)->isAlive())
+		if (*it != _boid)
 		{
 			v1 = cohesion(_boid) * _GD->m_dt;
 			v2 = separation(_boid) * _GD->m_dt;
 			v3 = alignment(_boid) * _GD->m_dt;
-
 			
 			_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) );
 		}
@@ -96,21 +100,57 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 //towards the centre of mass of other boids
 Vector3 BoidManager::cohesion(Boid* _boid)
 {
+	int count = 0;
 	Vector3 percievedCentre = Vector3::Zero;
+
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
-		if (Vector3::Distance((*it)->GetPos(), _boid->GetPos()) < proximity)
+
+		float d = Vector3::Distance((*it)->GetPos(), _boid->GetPos());
+
+
+		if ((d < searchRadius) && (d > 0))
 		{
 			if (*it != _boid && (*it)->isAlive())
 			{
-				percievedCentre += ((*it)->GetPos());
+				percievedCentre += (*it)->GetPos();
+				count++;
 			}
-
+		}
+		if (count > 0)
+		{
+			percievedCentre /= boidsInScene;
+			return seek(percievedCentre);
+		}
+		else
+		{
+			return Vector3::Zero;
 		}
 	}
-	percievedCentre = percievedCentre / boidsInScene;
+	//percievedCentre = percievedCentre / boidsInScene;
 	//Cohesion modifier
-	return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
+	//return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
+
+}
+
+Vector3 BoidManager::seek(Vector3 _target)
+{
+	float maxSpeed = 1.0f;
+	float maxForce = 1.0f;
+
+	Vector3 target = _target - m_pos;	
+
+	target.Normalize();
+
+	target *= maxSpeed;
+	target -= m_vel;
+
+	target = XMVector3ClampLength(target, 0.0f, maxSpeed);
+
+	Vector3 steer = target - m_vel;
+	steer = XMVector3ClampLength(steer, 0.0f, maxForce);
+
+	return steer;
 }
 
 //not going too close to other boids
