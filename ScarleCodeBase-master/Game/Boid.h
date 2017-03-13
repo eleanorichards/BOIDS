@@ -19,8 +19,6 @@ public:
 	virtual void Draw(DrawData* _DD) override;
 
 	Vector3 getVelocity() { return m_vel; }
-	Vector3 getAccleration() { return m_acc; }
-
 	Vector3 GetPos() { return m_pos; }
 	
 	bool isAlive() { return m_alive; }
@@ -31,7 +29,6 @@ private:
 	Vector3 m_dir;
 	Vector3 m_vel;
 	Vector3 m_up;
-	Vector3 m_acc;
 	Vector3 travelDirection;
 	Vector3 initialDirection;
 	Vector3 acceleration;
@@ -41,8 +38,13 @@ private:
 	int max = 100;
 	int min = 50;
 	//so they don't speed around everywhere
+<<<<<<< HEAD
 	float maxAcceleration = 7;
 	float minAcceleration = -7;
+=======
+	float maxAcceleration = 0.8;
+	float minAcceleration = -0.8;
+>>>>>>> parent of c47dce8... I think they're not flocking to 0,0,0 anymore
 
 	myVertex* m_vertices;
 
