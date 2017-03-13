@@ -122,7 +122,7 @@ Vector3 BoidManager::cohesion(Boid* _boid)
 		return Vector3::Zero;
 	}
 	//percievedCentre = percievedCentre / boidsInScene;
-
+	//AHHHHHHHH
 	//return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
 }
 
