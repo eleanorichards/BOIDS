@@ -22,7 +22,6 @@ public:
 	Vector3 getVelocity() { return m_vel; }
 	Vector3 getAccleration() { return m_acc; }
 	Vector3 getPercivedCentre() { return m_percievedCentre; }
-	Vector3 GetPos() { return m_pos; }
 	
 	bool isAlive() { return m_alive; }
 
@@ -31,7 +30,6 @@ private:
 	Vector3 m_percievedCentre = Vector3::Zero;
 	Vector3 m_target; // I am travelling towards this location
 	Vector3 m_dir;
-	Vector3 m_vel;
 	Vector3 m_up;
 	Vector3 m_acc;
 	Vector3 travelDirection;

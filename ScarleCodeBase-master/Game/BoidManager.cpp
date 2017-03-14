@@ -31,8 +31,10 @@ void BoidManager::Tick(GameData * _GD)
 			placeBoid = false;
 		}
 		if ((*it)->isAlive())
-		(*it)->Tick(_GD);
-		moveBoid(*it, _GD);
+		{
+			(*it)->Tick(_GD);
+			moveBoid((*it), _GD);
+		}
 	}
 }
 
@@ -88,10 +90,11 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 			v1 = cohesion(_boid) * _GD->m_dt;
 			v2 = separation(_boid) * _GD->m_dt;
 			v3 = alignment(_boid) * _GD->m_dt;
-			
 			/*if (_GD->m_dt * 0.9 > ((float)rand() / (float)RAND_MAX))
 			{*/
-			_boid->setVelocity((_boid->getVelocity() + v1 + v2 + v3) );
+			Vector3 velly = _boid->getVelocity();
+
+			_boid->setVelocity(velly + v1 + v2 + v3);
 			//}
 		}
 	}
@@ -100,47 +103,55 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 //towards the centre of mass of other boids
 Vector3 BoidManager::cohesion(Boid* _boid)
 {
+	Vector3 boid_position = _boid->GetPos();
+	Vector3 boid_velocity = _boid->getVelocity();
+
 	Vector3 percievedCentre = Vector3::Zero;
 	int count = 0;
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
 		if (*it != _boid && (*it)->isAlive())
 		{
-			float d = Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos());
-			if (d < searchRadius)
-			{
-				_boid->setPercievedCentre((*it)->GetPos());
+			//float d = Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos());
+			//if (d > 0 && d < searchRadius)
+			//{
+				percievedCentre += ((*it)->GetPos());
 				count++;
-			}
+			//}
 		}
-		if (count > 0)
-		{
-			_boid->setPercievedCentre(_boid->getPercivedCentre() /= count);
-			return seek(_boid->getPercivedCentre(), _boid->GetPos(), _boid->getVelocity());
-		}
-		else
-		{
-			return Vector3::Zero;
-		}
+		
 	}
-	//percievedCentre = percievedCentre / boidsInScene;
-	//return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
+	if (boidsInScene > 0)
+	{
+		percievedCentre /= boidsInScene;
+
+		return seek(percievedCentre, boid_position, boid_velocity);
+	}
+	else
+	{
+		return Vector3::Zero;
+	}
 }
 
 Vector3 BoidManager::seek(Vector3 _target, Vector3 _pos, Vector3 _vel)
 {
-	float maxSpeed = 10.0f;
-	float maxForce = 10.0f;
-
-	Vector3 target = _target - _pos;
-	target.Normalize();
+	float maxSpeed = 1.0f;
+	float maxForce = 1.0f;
+	Vector3 pos = _pos;
+	Vector3 vel = _vel;
+	Vector3 target = _target - pos;
+	//target.Normalize();
 	target *= maxSpeed;
 	target -= _vel;
-	target = XMVector3ClampLength(target, 0.0f, maxSpeed);
+	//target = XMVector3ClampLength(target, 0.0f, maxSpeed);
 
 	Vector3 seek = target - _vel;
-	seek = XMVector3ClampLength(seek, 0.0f, maxForce);
 
+	std::cout << "target" << target.x << target.y << target.z << "\n";
+
+	std::cout << "Seek1" << seek.x << seek.y << seek.z << "\n";
+
+	//seek = XMVector3ClampLength(seek, 0.0f, maxForce);
 	return seek;
 }
 
@@ -170,10 +181,10 @@ Vector3 BoidManager::alignment(Boid* _boid)
 	{
 		if (*it != _boid && (*it)->isAlive())
 		{
-			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < searchRadius + 10)
-			{
+			//if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < searchRadius + 10)
+			//{
 				pvj += ((*it)->getVelocity());
-			}
+			//}
 		}
 	}
 	pvj = pvj / (boidsInScene - 1);

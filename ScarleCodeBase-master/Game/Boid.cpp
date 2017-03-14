@@ -60,7 +60,6 @@ Boid::~Boid()
 
 void Boid::Spawn(Vector3 _pos, Vector3 _scale, Vector3 _dir, GameData* _GD)
 {
-	//set random direction every few seconds
 	initialDirection = Vector3(((float)(rand() % max) - min), ((float)(rand() % max) - min), (((float)(rand() % max) - min)))*0.1;
 	
 	m_alive = true; // turn this enemy ON
@@ -84,8 +83,8 @@ void Boid::Tick(GameData * _GD)
 		{
 			setAcceleration((m_vel) * _GD->m_dt);
 			
-			m_pos += m_acc * (10 * Vector3::One);//(m_dir is set to travelDirection in boids manager)
-			std::cout << m_pos.x << ", " << m_pos.y << ", " << m_pos.x << "\n";
+			m_pos += m_acc;//(m_dir is set to travelDirection in boids manager)
+			//std::cout << m_pos.x << ", " << m_pos.y << ", " << m_pos.x << "\n";
 		}
 	}
 	VBGO::Tick(_GD);
@@ -107,7 +106,6 @@ void Boid::SetAlive(bool isAlive)
 //limit and then set velocity
 void Boid::setVelocity(Vector3 velocity)
 {
-	
 	m_vel = velocity;
 }
 
@@ -124,7 +122,7 @@ void Boid::setRotation(float yaw, float pitch)
 void Boid::setAcceleration(Vector3 _acceleration)
 {
 	//cap acceleration in any direction to the set MAX
-	/*if (_acceleration.x > maxAcceleration)
+	if (_acceleration.x > maxAcceleration)
 	{
 		_acceleration.x = maxAcceleration;
 	}
@@ -147,7 +145,7 @@ void Boid::setAcceleration(Vector3 _acceleration)
 	if (_acceleration.z < minAcceleration)
 	{
 		_acceleration.z = minAcceleration;
-	}*/
+	}
 
 	m_acc = _acceleration;
 }
