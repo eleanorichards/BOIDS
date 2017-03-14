@@ -57,8 +57,8 @@ private:
 	float alignmentModifier = 1;
 	float separationModifier = 1;
 	float cohesionModifier = 1;
-	float proximity = 10;
-	float searchRadius = 30;
+	float proximity = 15;
+	float searchRadius = 1;
 	int numOfBoids = 0;
 	int max = 10;
 	int min = -10;

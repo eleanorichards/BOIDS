@@ -14,19 +14,21 @@ public:
 	void setPosition(Vector3 position);
 	void setRotation(float yaw, float pitch);
 	void setAcceleration(Vector3 _acceleration);
+	void setPercievedCentre(Vector3 _percievedCentre);
 
 	virtual void Tick(GameData* _GD) override;
 	virtual void Draw(DrawData* _DD) override;
 
 	Vector3 getVelocity() { return m_vel; }
 	Vector3 getAccleration() { return m_acc; }
-
+	Vector3 getPercivedCentre() { return m_percievedCentre; }
 	Vector3 GetPos() { return m_pos; }
 	
 	bool isAlive() { return m_alive; }
 
 
 private:
+	Vector3 m_percievedCentre = Vector3::Zero;
 	Vector3 m_target; // I am travelling towards this location
 	Vector3 m_dir;
 	Vector3 m_vel;

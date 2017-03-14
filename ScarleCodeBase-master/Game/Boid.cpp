@@ -151,3 +151,8 @@ void Boid::setAcceleration(Vector3 _acceleration)
 
 	m_acc = _acceleration;
 }
+
+void Boid::setPercievedCentre(Vector3 _percievedCentre)
+{
+	m_percievedCentre += _percievedCentre;
+}

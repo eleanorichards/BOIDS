@@ -100,7 +100,8 @@ void BoidManager::moveBoid(Boid* _boid, GameData * _GD)
 //towards the centre of mass of other boids
 Vector3 BoidManager::cohesion(Boid* _boid)
 {
-	Vector3 percievedCentre;
+	Vector3 percievedCentre = Vector3::Zero;
+	int count = 0;
 	for (list<Boid*>::iterator it = m_Boids.begin(); it != m_Boids.end(); it++)
 	{
 		if (*it != _boid && (*it)->isAlive())
@@ -108,21 +109,21 @@ Vector3 BoidManager::cohesion(Boid* _boid)
 			float d = Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos());
 			if (d < searchRadius)
 			{
-				percievedCentre += ((*it)->GetPos());
+				_boid->setPercievedCentre((*it)->GetPos());
+				count++;
 			}
 		}
-	}
-	if (boidsInScene > 0)
-	{
-		percievedCentre /= boidsInScene;
-		return seek(percievedCentre, _boid->GetPos(), _boid->getVelocity());
-	}
-	else
-	{
-		return Vector3::Zero;
+		if (count > 0)
+		{
+			_boid->setPercievedCentre(_boid->getPercivedCentre() /= count);
+			return seek(_boid->getPercivedCentre(), _boid->GetPos(), _boid->getVelocity());
+		}
+		else
+		{
+			return Vector3::Zero;
+		}
 	}
 	//percievedCentre = percievedCentre / boidsInScene;
-	//AHHHHHHHH
 	//return ((percievedCentre - _boid->GetPos()) / cohesionModifier);
 }
 
@@ -151,10 +152,6 @@ Vector3 BoidManager::separation(Boid* _boid)
 	{
 		if (*it != _boid && (*it)->isAlive())
 		{
-			/*float x = Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos());
-			float y = Vector3::Distance((*it)->GetPos(), _boid->GetPos());
-			std::cout << x << " , " << y;*/
-
 			//if distance between is below proximity
 			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < proximity)
 			{
@@ -162,7 +159,6 @@ Vector3 BoidManager::separation(Boid* _boid)
 			}
 		}
 	}
-	//separation modifier
 	return c;
 }
 
@@ -174,10 +170,10 @@ Vector3 BoidManager::alignment(Boid* _boid)
 	{
 		if (*it != _boid && (*it)->isAlive())
 		{
-		//	if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < searchRadius)
-		//	{
+			if (Vector3::DistanceSquared((*it)->GetPos(), _boid->GetPos()) < searchRadius + 10)
+			{
 				pvj += ((*it)->getVelocity());
-		//	}
+			}
 		}
 	}
 	pvj = pvj / (boidsInScene - 1);
